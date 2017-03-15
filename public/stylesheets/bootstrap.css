@@ -6060,7 +6060,7 @@ button.close {
   .carousel-indicators {
     bottom: 20px;
   }
-  
+
 }
 .clearfix:before,
 .clearfix:after,
@@ -6356,4 +6356,6 @@ button.close {
     display: none !important;
   }
 }
+
+
 /*# sourceMappingURL=bootstrap.css.map */

@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Techno Trends</title>
+    <title>Dump Trace</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -17,14 +17,66 @@
 
     <!-- Custom Fonts -->
     <link href="../stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- Navigation -->
+    function process(){
+      console.log("TESTTTT");
+      var day=document.getElementById("day").value;
+      var day2=document.getElementById("day2").value;
+      var value=new Date(day);
+      var value2=new Date(day2);
+      var newMarkers=[];
+      var mapmarkers=[];
+     // console.log(value.toString());
+      <% val.forEach(function(elem){ %>
+        var date= new Date('<%=elem[2]%>');
+       // console.log(date.toString());
+       if(date.getTime()>=value.getTime())
+        {if(date.getTime()<=value2.getTime()){
+          console.log(date);
+          var mapOptions = {
+          center: new google.maps.LatLng(37.3382,-121.8863),
+          zoom: 12,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+          var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+          var temp=[];
+          temp.push(<%=elem[0]%>);
+         // console.log(temp);
+          temp.push(<%=elem[1]%>);
+          console.log(temp);
+
+          newMarkers.push(temp);
+console.log(newMarkers);
+       }
+     }
+     <% });%>
+      
+       newMarkers.forEach(function(drink){ 
+
+        marker = new google.maps.Marker({
+        position: new google.maps.LatLng(drink[0],drink[1]) 
+     }); 
+        mapmarkers.push(marker);
+        console.log(mapmarkers);
+       
+      });
+var markerCluster=new MarkerClusterer(map,mapmarkers); 
+google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
+    // your code here
+    map.setZoom(17);
+    map.setCenter(cluster.getCenter());
+//cluster.getMarkers();
+//cluster.getSize();
+});
+    }
+      
+</script>
+
+    
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -64,45 +116,152 @@
         </ul>
         <!-- /.navbar-collapse -->
       </div>
+      
+   
+  
+
       <!-- /.container -->
   </nav>
 
+ <br></br>
+  
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 
  <style type="text/css">
       html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0 }
+      body { font-family: "Lato", sans-serif;height: 100%; margin: 0; padding: 0 }
       #map_canvas { height: 100% }
+      .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
     </style>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_vZAlwiYJHZpJGR7W5429MVhcRQBlZdE&sensor=true"></script>
     <script type="text/javascript" src="/MarkerClusterer/markerclusterer.js"></script>
     <script>
+
       window.onload=function initialize() {
         console.log("TEST");
         var mapOptions = {
           center: new google.maps.LatLng(37.3382,-121.8863),
-          zoom: 10,
+          zoom: 12,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"),
             mapOptions);
         var markers=[];
          <% val.forEach(function(drink){ %>
-
         marker = new google.maps.Marker({
-        position: new google.maps.LatLng(<%=drink%>) 
+        position: new google.maps.LatLng(<%=drink[0]%>,<%=drink[1]%>),
+        
      }); 
+        //console.log(<%=drink[3]%>);
+        //marker.setTitle(<%=drink[3]%>);
+        var h=("<%=drink[3]%>");
+        marker.setTitle(h);
+     
         markers.push(marker);
-       
+       console.log(marker);
      <% });%>
-         var markerCluster=new MarkerClusterer(map,markers); 
+         var markerCluster=new MarkerClusterer(map,markers);
+google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
+    // your code here
+    map.setZoom(17);
+    map.setCenter(cluster.getCenter());
+    openNav();
+    console.log("Ro");
+    
+    console.log(cluster);
+    //console.log(cluster.markerCluster.markers[0]);
+    console.log("ro");
+    console.log(cluster);
+
+    
+//cluster.getMarkers();
+//cluster.getSize();
+});
+
       }
     </script>
+
+
+  <script>
+
+
+// function openNav() {
+//     document.getElementById("mySidenav").style.width = "250px";
+// }
+// setTimeout(openNav, 5000);
+
+// function closeNav() {
+//     document.getElementById("mySidenav").style.width = "0";
+// }
+  </script>
     
   </head>
   <body>
+    
 
-    <div id="map_canvas" style="width:100%; height:100%"></div>
+    <div class="row" style="margin: 0 auto; margin-top:25px">
+      <div class="col-lg-12">
+    
+  <font color="green">Pick a Time Line From: <input type="date" id="day"></input></font>
+  <font color="green">To: <input type="date" id="day2"></input></font>
+  <button type="button" onclick="process()">Submit!</button>
+
+</div>
+</div>
+<div id="mySidenav" class="sidenav">
+  <span style="font-size:15px;cursor:pointer" onclick="closeNav()" >&#9776; Close</span>
+  
+  <a href="#">Address</a>
+  <a href="#">Time</a>
+  <a href="#">Image</a>
+  
+</div>
+
+
+
+    <div class="col-lg-12" style="margin: 0 auto; margin-top:15px; margin-left:15px; padding-right:40cms;" id="map_canvas" style="width:100%; height:100%"></div>
+
+
+
+
   </body>
 </html>
 

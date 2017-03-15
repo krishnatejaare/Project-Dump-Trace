@@ -39,6 +39,8 @@ ref.orderByChild("Longitude"+"Latitude").on("child_added", function(snapshot) {
   //console.log("---"+ snapshot.val().Latitude+"---"+snapshot.val().Longitude);
   temp.push(snapshot.val().Latitude);
   temp.push(snapshot.val().Longitude);
+  temp.push(snapshot.val().Time);
+  temp.push(snapshot.val().Address);
   var latitudearray=snapshot.val().Latitude;
   var longitudearray=snapshot.val().Longitude;
 
@@ -85,6 +87,8 @@ tim=newPost.val().Time;
   if(temp[1]==undefined && temp[1]==null)
     temp.pop();
  //console.log(temp);
+ temp.push(newPost.val().Time);
+ temp.push(newPost.val().Address);
          if(pair[0]==null)
           //if(temp[0]==null && temp[1]==null)
             pair.push(temp);
@@ -120,8 +124,33 @@ app.get('/',function(req,res){
 	res.render('pages/about.ejs');
 });
 
+app.get('/a',function(req,res){
+  res.render('pages/timemapview.ejs');
+});
+
 app.get('/MapView',function(req,res){
+  i=1;
+  console.log("value"+i);
+  i++;
+
+  console.log(pairs.length);
+time=time.concat(ti);
+console.log(air.length);
+  pairs=pairs.concat(air);
+  air=[];
   
+  for(var i=0;i<pairs.length;i++){
+        //console.log(pairs[i]);
+    }
+    
+console.log(pairs.length);
+
+ //res.render('pages/index.ejs',{val:pairs,time:time});
+ res.render('pages/index.ejs',{val:pairs});
+  
+});
+
+app.get('/timemapview',function(req,res){
 time=time.concat(ti);
 
   pairs=pairs.concat(air);
@@ -131,32 +160,10 @@ time=time.concat(ti);
     }
     
 
- res.render('pages/index.ejs',{val:pairs});
-  
+ res.render('pages/timemapview.ejs',{val:pairs,time:time});
 });
 
-var index=[];
-var q=0;
-var timemarkers=[];
-function tie(){
-var d1=new Date("2017-01-25");
-var d2=new Date("2017-03-25");
 
-for(i=0;i<time.length;i++){
-  var d3=new Date(time[i]);
-  if(d3.getTime()>d1.getTime()){
-    if(d3.getTime()<d2.getTime())
-      index.push(i);
-        console.log(d3);
-        timemarkers[q]=pairs[i];
-        q++;
- // timemarkers.push(pairs(i));
-  }
-}
-console.log(index);
-console.log(timemarkers);
-}
-setTimeout(tie, 2000);
 
 
 app.listen(8080);
