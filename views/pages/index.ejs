@@ -20,7 +20,6 @@
     
     
     <script>
-
     function process(){
       console.log("TESTTTT");
       var day=document.getElementById("day").value;
@@ -36,27 +35,25 @@
        if(date.getTime()>=value.getTime())
         {if(date.getTime()<=value2.getTime()){
           console.log(date);
-          var mapOptions = {
+          
+          var temp=[];
+          temp.push(<%=elem[0]%>);
+         // console.log(temp);
+          temp.push(<%=elem[1]%>);
+          console.log(temp);
+          newMarkers.push(temp);
+console.log(newMarkers);
+       }
+     }
+     <% });%>
+      var mapOptions = {
           center: new google.maps.LatLng(37.3382,-121.8863),
           zoom: 12,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
           var map = new google.maps.Map(document.getElementById("map_canvas"),
             mapOptions);
-          var temp=[];
-          temp.push(<%=elem[0]%>);
-         // console.log(temp);
-          temp.push(<%=elem[1]%>);
-          console.log(temp);
-
-          newMarkers.push(temp);
-console.log(newMarkers);
-       }
-     }
-     <% });%>
-      
        newMarkers.forEach(function(drink){ 
-
         marker = new google.maps.Marker({
         position: new google.maps.LatLng(drink[0],drink[1]) 
      }); 
@@ -143,7 +140,6 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
     transition: 0.5s;
     padding-top: 60px;
 }
-
 .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -152,11 +148,9 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
     display: block;
     transition: 0.3s
 }
-
 .sidenav a:hover, .offcanvas a:focus{
     color: #f1f1f1;
 }
-
 .sidenav .closebtn {
     position: absolute;
     top: 0;
@@ -164,17 +158,14 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
     font-size: 36px;
     margin-left: 50px;
 }
-
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
-
     </style>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_vZAlwiYJHZpJGR7W5429MVhcRQBlZdE&sensor=true"></script>
     <script type="text/javascript" src="/MarkerClusterer/markerclusterer.js"></script>
     <script>
-
       window.onload=function initialize() {
         console.log("TEST");
         var mapOptions = {
@@ -210,24 +201,19 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
     //console.log(cluster.markerCluster.markers[0]);
     console.log("ro");
     console.log(cluster);
-
     
 //cluster.getMarkers();
 //cluster.getSize();
 });
-
       }
     </script>
 
 
   <script>
-
-
 // function openNav() {
 //     document.getElementById("mySidenav").style.width = "250px";
 // }
 // setTimeout(openNav, 5000);
-
 // function closeNav() {
 //     document.getElementById("mySidenav").style.width = "0";
 // }
@@ -264,12 +250,3 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
 
   </body>
 </html>
-
-
-
-
-
-
-
-
-    
