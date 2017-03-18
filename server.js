@@ -24,74 +24,37 @@ admin.initializeApp({
   }),
   databaseURL: 'https://dump-trace.firebaseio.com/'
 });
-
-
 var db = admin.database();
 var ref=db.ref("Address of the Dump spots");
-var lat=[],log=[];
 var pairs=[];
 var time=[];
 var x=1;
-
 ref.orderByChild("Longitude"+"Latitude").on("child_added", function(snapshot) {
-  //ref.on("child_changed", function(snapshot) {
   var temp=[];
-  //console.log(x++);
-  //console.log("---"+ snapshot.val().Latitude+"---"+snapshot.val().Longitude);
   temp.push(snapshot.val().Latitude);
   temp.push(snapshot.val().Longitude);
   temp.push(snapshot.val().Time);
   temp.push(snapshot.val().Address);
-
-  var location1={};
-    //if(snapshot.val().Latitude!=undefined)
-      location1.latitude=snapshot.val().Latitude;
-    //if(snapshot.val().Longitude!=undefined)
-      location1.longitude=snapshot.val().Longitude;
-   // if(snapshot.val().Time!=undefined)
-      location1.time=snapshot.val().Time;
-   // if(snapshot.val().Address!=undefined)
-      location1.address=snapshot.val().Address;
-
-  
-  console.log("location"+location1.latitude);
-  var latitudearray=snapshot.val().Latitude;
-  var longitudearray=snapshot.val().Longitude;
-
   var timearray=snapshot.val().Time;
   if(timearray!=undefined)
   time.push(timearray);
- //console.log(time);
-  //console.log(time.length);
-
-  lat.push(latitudearray);
-  log.push(longitudearray);
-  //console.log(snapshot.val());
   if(temp[0]!=undefined && temp[1]!=undefined)
   pairs.push(temp);
- 
-
 });
-
-
 
 var air=[];
 var ti=[];
 
 ref.on("value", function(snapshot) {
       var newPost = snapshot.val();
-     // console.log(newPost);
-var temp=[];
-var tim=[];
-
+      var temp=[];
+      var tim=[];
  ref.on("child_changed", function(newPost,pre){
-  var pair=[];
-           
-tim=newPost.val().Time;
+      var pair=[];
+      tim=newPost.val().Time;
  if(tim!=undefined){
       if(ti[0]==null){
           ti.push(tim);}}
-        //console.log(ti);
  if(temp[0]==null)
   temp.push(newPost.val().Latitude);
   if(temp[0]==undefined && temp[0]==null)
@@ -102,99 +65,21 @@ tim=newPost.val().Time;
 
   if(temp[1]==undefined && temp[1]==null)
     temp.pop();
- //console.log(temp);
  temp.push(newPost.val().Time);
  temp.push(newPost.val().Address);
          if(pair[0]==null)
-          //if(temp[0]==null && temp[1]==null)
             pair.push(temp);
             air=pair;
-
-            //pr();
       });
       
   });
-// function filter(){
-//   var i=0;
-//   pairs=[1,2,3,4,2,3,4,5,6,6];
-//  //console.log(pairs[0]);
-//  var kri=[];
-//  kri.push(pairs[0]);
-//  //console.log(kri[0]);
-//   //console.log(pairs[1]);
-//   //console.log("krishna");
-//   if(pairs[0]==pairs[1])
-//     console.log(pairs[0]);
-//   var count=0;
-//   var pemp=[];
-//    var counts=[];
-//    var bool=1;
-// for(i=0;i<pairs.length;i++){
-//   var count=0;
 
-//   for(var j=i+1;j<pairs.length;j++)
-//   {
-    
-//     if(pairs[i]==pairs[j])
-//     {
-      
-//         if(count==0)
-//         {
-          
-//           if(pemp[0]!=undefined)
-//           {
-            
-//             for(var z=0;z<pemp.length;z++)
-//             {
-             
-//             if(pairs[i]==pemp[z]) 
-//               {
-//                 bool=0;
-//               console.log("bye");
-//               }
-//               else
-//                 bool=1
-//             }
-//           }
-//           if(bool==1)
-//           {
-//             pemp.push(pairs[i]);
-      
-//               count++;
-//           }
-//        }
-
-     
-//   }
-//   counts.push(count);
-//   count=0;
-//  }
-// }
-// for(var i=0;i<pemp.length;i++){
-
-//         console.log(pemp[i]);
-//     }
-
-//  //console.log(pairs[i]);
-
-// }
-// setTimeout(filter,2000);
-
-
-//listing all the values only exactly once.
-
-
+//listing the different places and its count
 function filter1(){
   var i=0;
-  //console.log("krishna");
- //console.log(pairs[0]);
  var kri=[];
  kri.push(pairs[0]);
- //console.log(kri[0]);
-  //console.log(pairs[1]);
-  //console.log(pairs[0]);
   if(pairs[0]==pairs[1])
-    //console.log(pairs[0]);
   var count=0;
   var pemp=[];
    var counts=[];
@@ -206,69 +91,50 @@ pairs.forEach(function(first){
   var bool=1;
   var check=0;
   var hashmaparray=[];
- //console.log("first" +first[3]);
-
   pairs.forEach(function(second){
-    //console.log(count);
-    //console.log("second"+second[3]);
     if(first[3]==second[3])
     {   check++;
-      console.log("equals");
-      
-        //if(count>0)
-        //{
-         // console.log("count");
-          
-          if(pemp[0]!=undefined)
+        if(pemp[0]!=undefined)
           {
-            //console.log("passed undefined")
-            
-            
             pemp.forEach(function(third){
-            
             if(first[3]==third[3]) 
               {
-                //console.log("passed equal undefined");
                 bool=0;
-              //console.log("bye");
-              }
-               
-
-              
+              }              
             });
           }
           if(bool==1)
           {
-            //console.log("bool");
-            pemp.push(first);
-            //console.log(pemp);
-      
-              
-          }
-      // }
-      
-
-     
+            pemp.push(first);    
+          }  
   }
  count=count+1;
  });
-
   checkcount.push(check);
-
-
-
-
-});
-for(var i=0;i<pemp.length;i++){
-
-       // console.log(pemp[i]);
-    }
-
+  var print=1;
   
+  final.forEach(function(hash)
+  {
+      hash.forEach(function(bash)
+    {
+      if(first[3]==bash[3])
+      {
+       print=0; 
+      }
+    });
+  });
 
+  if(print==1)
+    {
+      hashmaparray.push(first);
+      hashmaparray.push(check);
+      final.push(hashmaparray);
+    } 
+});
 
- //console.log(pairs[i]);
-
+for(var i=0;i<final.length;i++){
+       console.log(final[i]);
+    }
 }
 setTimeout(filter1,2000);
 
@@ -276,99 +142,54 @@ setTimeout(filter1,2000);
 //listing only duplicates//
 function filter(){
   var i=0;
-  
- //console.log(pairs[0]);
- var kri=[];
- kri.push(pairs[0]);
- //console.log(kri[0]);
-  //console.log(pairs[1]);
-  //console.log(pairs[0]);
-  if(pairs[0]==pairs[1])
-    //console.log(pairs[0]);
   var count=0;
   var pemp=[];
-   var counts=[];
    var bool=1;
-   var checkcount=[];
-pairs.forEach(function(first){
+pairs.forEach(function(first)
+{
   var count=0;
   var bool=1;
   var check=0;
- //console.log("first" +first[3]);
-
-  pairs.forEach(function(second){
-   // console.log(count);
-    //console.log("second"+second[3]);
+  pairs.forEach(function(second)
+  {
     if(first[3]==second[3])
     {
-      check++;
-      //console.log("equals");
-      
+        check++;
         if(check>1)
-        {
-          //console.log("count");
-          
+        { 
           if(pemp[0]!=undefined)
           {
-            //console.log("passed undefined")
-            
-            
-            pemp.forEach(function(third){
+            pemp.forEach(function(third)
+            {
             
             if(first[3]==third[3]) 
               {
-                //console.log("passed equal undefined");
                 bool=0;
-              //console.log("bye");
               }
-               
-
-              
             });
           }
           if(bool==1)
           {
-            //console.log("bool");
-            pemp.push(first);
-
-            //console.log(pemp);
-      
-              
+            pemp.push(first);   
           }
-       }
-      
-
-     
+       }    
   }
  count=count+1;
  });
-  checkcount.push(check);
+  
 
 });
 for(var i=0;i<pemp.length;i++){
-
-        //console.log(pemp[i]);
+        console.log(pemp[i]);
     }
-for(var i=0;i<checkcount.length;i++){
-
-        //console.log(checkcount[i]);
-
-    }
-    
- //console.log(pairs[i]);
-
 }
 setTimeout(filter,2000);
-
-
 
 function pr(){
     for(var i=0;i<air.length;i++){
        // console.log(air[i]);
     }
     //console.log(air.length);
-    
-
 }
  
 function pri(){
