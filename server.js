@@ -2,6 +2,11 @@ var express=require('express');
 var path=require('path');
 var MarkerClusterer = require('node-js-marker-clusterer');
 
+// var d3=require("d3"),
+//     jsdom=require("jsdom");
+// var document=jsdom.jsdom(),
+//     svg=d3.select(document.body).append("svg");
+
 var ejs=require('ejs');
 var engine=require('ejs-mate');
 
@@ -14,6 +19,15 @@ app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 
 var admin=require('firebase-admin');
+//var storage = FirebaseStorage.getInstance();
+var locationFactory = function(lat,long,time,address){
+ var location = {};
+ location.latitude = lat;
+ location.longitude = long;
+ location.time = time;
+ location.address = address;
+ return location;
+};
 
 
 admin.initializeApp({
@@ -24,17 +38,41 @@ admin.initializeApp({
   }),
   databaseURL: 'https://dump-trace.firebaseio.com/'
 });
+
+// var storageRef=storage.getReferenceFromUrl("gs://dump-trace.appspot.com");
+// storageRef.child('photos').getDownloadURL().then(function(url) {
+//   // `url` is the download URL for 'images/stars.jpg'
+
+//   // This can be downloaded directly:
+//   var xhr = new XMLHttpRequest();
+//   xhr.responseType = 'blob';
+//   xhr.onload = function(event) {
+//     var blob = xhr.response;
+//   };
+//   xhr.open('GET', url);
+//   xhr.send();
+
+//   // Or inserted into an <img> element:
+//   var img = document.getElementById('myimg');
+//   img.src = url;
+// }).catch(function(error) {
+//   // Handle any errors
+// });
+
 var db = admin.database();
 var ref=db.ref("Address of the Dump spots");
 var pairs=[];
 var time=[];
+
 var x=1;
 ref.orderByChild("Longitude"+"Latitude").on("child_added", function(snapshot) {
   var temp=[];
+  
   temp.push(snapshot.val().Latitude);
   temp.push(snapshot.val().Longitude);
   temp.push(snapshot.val().Time);
   temp.push(snapshot.val().Address);
+  temp.push(snapshot.key);
   var timearray=snapshot.val().Time;
   if(timearray!=undefined)
   time.push(timearray);
@@ -49,8 +87,12 @@ ref.on("value", function(snapshot) {
       var newPost = snapshot.val();
       var temp=[];
       var tim=[];
+       var jump=[];
+      var a,b,c,d;
  ref.on("child_changed", function(newPost,pre){
       var pair=[];
+     
+     
       tim=newPost.val().Time;
  if(tim!=undefined){
       if(ti[0]==null){
@@ -67,6 +109,7 @@ ref.on("value", function(snapshot) {
     temp.pop();
  temp.push(newPost.val().Time);
  temp.push(newPost.val().Address);
+ temp.push(newPost.key);
          if(pair[0]==null)
             pair.push(temp);
             air=pair;
@@ -75,6 +118,7 @@ ref.on("value", function(snapshot) {
   });
 
 //listing the different places and its count
+var final=[];
 function filter1(){
   var i=0;
  var kri=[];
@@ -85,15 +129,18 @@ function filter1(){
    var counts=[];
    var bool=1;
    var checkcount=[];
-   var final=[];
+   
 pairs.forEach(function(first){
   var count=0;
   var bool=1;
   var check=0;
   var hashmaparray=[];
+  var ids=[];
   pairs.forEach(function(second){
     if(first[3]==second[3])
-    {   check++;
+    {   ids.push(second[4]);
+
+      check++;
         if(pemp[0]!=undefined)
           {
             pemp.forEach(function(third){
@@ -126,8 +173,12 @@ pairs.forEach(function(first){
 
   if(print==1)
     {
+      first.push(check);
+      first.push(ids);
       hashmaparray.push(first);
-      hashmaparray.push(check);
+
+      //hashmaparray.push(check);
+      //hashmaparray.push(ids);
       final.push(hashmaparray);
     } 
 });
@@ -180,7 +231,7 @@ pairs.forEach(function(first)
 
 });
 for(var i=0;i<pemp.length;i++){
-        console.log(pemp[i]);
+        //console.log(pemp[i]);
     }
 }
 setTimeout(filter,2000);
@@ -203,11 +254,12 @@ function pri(){
 setTimeout(pri, 2000);
 
 app.get('/',function(req,res){
+  console.log(object);
 	res.render('pages/about.ejs');
 });
 
 app.get('/a',function(req,res){
-  res.render('pages/timemapview.ejs');
+  res.render('pages/listview.ejs',{val:final});
 });
 
 app.get('/MapView',function(req,res){
