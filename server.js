@@ -1,22 +1,24 @@
 var express=require('express');
 var path=require('path');
 var MarkerClusterer = require('node-js-marker-clusterer');
-
-// var d3=require("d3"),
-//     jsdom=require("jsdom");
-// var document=jsdom.jsdom(),
-//     svg=d3.select(document.body).append("svg");
-
 var ejs=require('ejs');
 var engine=require('ejs-mate');
-
-
+var firebase=require('firebase');
+var gcloud = require('gcloud');
 var app=express();
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/MarkerClusterer',express.static(__dirname+'/node_modules/node-js-marker-clusterer/src'));
-
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
+
+var storage = gcloud.storage({
+  projectId: 'dump-trace',
+  privateKey: "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDWNbwxMbQ38x3/\nWSwiqXxiNi0L4+46aKl0/om9j8GP9tV3iEiia5p8xZO9dzm6BkGaybTSR3oNiAKg\nr0/EEwMsHwrewTLV6+/Dqv0afuXhFfOncv5UgBTYsh0tFajGiYY9pVMAG8BB/Dj0\n4d57D4RVhQUpTY9VaffJbTeMUI0crCPrsxCoKqI0ZkqZoCTXkUabZ0+A2tVOQWKw\nwWvwzCa0ymNpoaFkYz3mfvBcfpWnSivc1W4h4GWbfqhM8R68hiobQLXQTGHcXFPd\nIJS9DGtTGcXndfsAcAKRDcza7TScTj17s32SwyEZWVn575OVEAKQ8Qzyo4T5n2Yy\nLGgZeOx/AgMBAAECggEBAIBjVJhnogymuqQBXmKoEtUKg5VM18xKTsbAiO4E647N\n8sPh+ybeN4nxIcu9WewVM90CaE5gaNcTXf/RE44BlzUqpek9AqsU7m/oXCs1Q7LU\n5WTHl4gt/FCk8LfE85OLedoY7NZzy5fBBKJBfodjlX1sbNuEkRQwn0MrItAGt40m\nxkg7LSRIIDagSOehkh+GD+tGnFfrV6oaSAgH9R1J1Zqh114Hbg4ss3gOtFEe0n6W\nWikRSZk/+wdHiI1rk8LWW28hfqlcYvl2z63fnNBxVgjqFTDZ/zI4fE66Z5BRspI3\nyg2LYggZDh+Zkzd/lczEb07gCDLFn7+q6ENJ8nCiKoECgYEA+nLHLsSRtDyanEuu\nIQ9Eea4I0/VwZc/nFdH4McQktlBaDeHPDYRpLsyAIKHEpmJaNjuJgXoIyFr7eybz\nvUbdeTy6P9xRBAfpGb+5g9NIXAWsG9Hye1dUlYbTy6thXsIthADcj30bLuD1Muvd\n0hgx4v7HwruaNYaBcKC3abcL9V0CgYEA2vVQeYLl9gFiyAJhbF13jsT4qJoRmCBI\nPxczMPa/7N61CiOexwnTdz5FA3OxdvNVx/XlFwcWxzpymPBCnOhm50QcbOobnKu3\n4s3yukI0bZs33qwy/xyYkWK2yH5Ru/dCA2ChcE3KARNSnZxjoX+dz1xBH4wj/SQB\ncKB1X5sfT4sCgYBVIZDNN+ojLvqLKDp/aFYpWlwL2IElSn9NbnsER50HD9ccouYj\nvR+X1dGzxek3eXUavDAof9feavbSzNHLQ/xiip7wuC4dxaaZpw8jXT1acl8ncb0P\n6gaJcTQrJg1KDY01MqnGaItF6xfOAFj9YlYKx/oVGnn3ucnkA+10lNEOzQKBgFGX\n9QMy+krwPUVXTcK6GeGEGT2LHF9aOFH6bUMj0GWOoFxE5dg6GylmdQVSSaGQEDlR\nsqsgIybe6vF/JvOdzysDQKx9mQiLHR1RrdAm966YlvtNpDtZBqm25XJVUFQBUgI8\nMizNcCdycej17FK0YbRyJnqBGLAuiLLVuKeGAOb9AoGBALVhpRRHxQhzwgKN3mwG\nodAOqx3EkMNzKJig2X1oV8tb6coD2EyylfXGzgDUF394O//QNv7sLm1h0rApl72I\ndREq9MPfLGkPhcIifxy5z7BuKmQosPUGGa887QD5Iy/KOgVmJY+NOdlQ6tfBxTO7\nCmpf63DTfy0F/YX9D3tEFSeA\n-----END PRIVATE KEY-----\n"
+});
+const bucket = storage.bucket('gs://dump-trace.appspot.com/photos')
+
+
+
 
 var admin=require('firebase-admin');
 //var storage = FirebaseStorage.getInstance();
@@ -39,25 +41,7 @@ admin.initializeApp({
   databaseURL: 'https://dump-trace.firebaseio.com/'
 });
 
-// var storageRef=storage.getReferenceFromUrl("gs://dump-trace.appspot.com");
-// storageRef.child('photos').getDownloadURL().then(function(url) {
-//   // `url` is the download URL for 'images/stars.jpg'
 
-//   // This can be downloaded directly:
-//   var xhr = new XMLHttpRequest();
-//   xhr.responseType = 'blob';
-//   xhr.onload = function(event) {
-//     var blob = xhr.response;
-//   };
-//   xhr.open('GET', url);
-//   xhr.send();
-
-//   // Or inserted into an <img> element:
-//   var img = document.getElementById('myimg');
-//   img.src = url;
-// }).catch(function(error) {
-//   // Handle any errors
-// });
 
 var db = admin.database();
 var ref=db.ref("Address of the Dump spots");
@@ -253,12 +237,15 @@ function pri(){
 
 setTimeout(pri, 2000);
 
+
+
+
 app.get('/',function(req,res){
-  console.log(object);
+  //console.log(object);
 	res.render('pages/about.ejs');
 });
 
-app.get('/a',function(req,res){
+app.get('/ListView',function(req,res){
   res.render('pages/listview.ejs',{val:final});
 });
 
