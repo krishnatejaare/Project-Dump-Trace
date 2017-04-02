@@ -47,11 +47,13 @@ var db = admin.database();
 var ref=db.ref("Address of the Dump spots");
 var pairs=[];
 var time=[];
+var data=[];
 
 var x=1;
 ref.orderByChild("Longitude"+"Latitude").on("child_added", function(snapshot) {
   var temp=[];
-  
+   data.push(snapshot.val());
+ // console.log(data);
   temp.push(snapshot.val().Latitude);
   temp.push(snapshot.val().Longitude);
   temp.push(snapshot.val().Time);
@@ -69,6 +71,7 @@ var ti=[];
 
 ref.on("value", function(snapshot) {
       var newPost = snapshot.val();
+
       var temp=[];
       var tim=[];
        var jump=[];
@@ -76,7 +79,7 @@ ref.on("value", function(snapshot) {
  ref.on("child_changed", function(newPost,pre){
       var pair=[];
      
-     
+     data.push(newPost.val());
       tim=newPost.val().Time;
  if(tim!=undefined){
       if(ti[0]==null){
@@ -101,8 +104,26 @@ ref.on("value", function(snapshot) {
       
   });
 
+function sr(){
+  //console.log(final);
+  console.log(data.length);
+  data.forEach(function (d){
+    
+      console.log(d);
+    
+// for (var key in d) {
+  
+//     console.log(key + " -> " + d[key]);
+  
+// }
+})
+}
+
+setTimeout(sr,10000);
+
 //listing the different places and its count
 var final=[];
+var Zeta=[];
 function filter1(){
   var i=0;
  var kri=[];
@@ -140,9 +161,45 @@ pairs.forEach(function(first){
           }  
   }
  count=count+1;
+ 
  });
   checkcount.push(check);
   var print=1;
+  var prit=1;
+//var Zeta=data;
+//console.log(Zeta);
+data.forEach(function (element){
+  
+  if(element.Address==first[3])
+    //if(element.count==null){
+    element.count=check;
+    element.list=ids;
+    
+   // console.log(element);
+    //}
+})
+  // Zeta.forEach(function(d){
+  //   if(d.address==first[3])
+  //     {prit=0;
+       
+  //     }
+    
+  // })
+  // if(prit==1){
+  //   var beta=[];
+  //   beta.latitude=first[0];
+  //   beta.longitude=first[1];
+  //   beta.time=first[2];
+  //   beta.address=first[3];
+  //   beta.count=check;
+  //   beta.listofids=ids;
+  //   Zeta.push(beta);
+    
+  // //   beta.count(check);
+  // //   beta.listofids(ids);
+  // }
+
+
   
   final.forEach(function(hash)
   {
@@ -157,6 +214,9 @@ pairs.forEach(function(first){
 
   if(print==1)
     {
+      
+      
+      //console.log(data);
       first.push(check);
       first.push(ids);
       hashmaparray.push(first);
@@ -166,12 +226,16 @@ pairs.forEach(function(first){
       final.push(hashmaparray);
     } 
 });
+console.log("krishna teja");
+//console.log(data);
 
 for(var i=0;i<final.length;i++){
-       console.log(final[i]);
+       //console.log(final[i]);
+      
     }
 }
-setTimeout(filter1,2000);
+setTimeout(filter1,4000);
+
 
 
 //listing only duplicates//
@@ -237,11 +301,15 @@ function pri(){
 
 setTimeout(pri, 2000);
 
-
+app.get('/a',function(req,res){
+  res.render('pages/panel.ejs',{val:final});
+});
 
 
 app.get('/',function(req,res){
   //console.log(object);
+  console.log(data);
+  console.log(data.count);
 	res.render('pages/about.ejs');
 });
 
@@ -251,12 +319,12 @@ app.get('/ListView',function(req,res){
 
 app.get('/MapView',function(req,res){
   i=1;
-  console.log("value"+i);
+ // console.log("value"+i);
   i++;
 
-  console.log(pairs.length);
+ // console.log(pairs.length);
 time=time.concat(ti);
-console.log(air.length);
+//console.log(air.length);
   pairs=pairs.concat(air);
   air=[];
   

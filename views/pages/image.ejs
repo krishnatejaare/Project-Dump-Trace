@@ -13,16 +13,20 @@
     background-color: lightgreen;
     margin-top:20px;
 }
+      #i{
+        width:100px;
+        height:100px;
+      }
     </style>
 <% include template %>
 </head>
 <body>
 <div id="r">
-<!-- <span id="myspan" style="font-size:20px;cursor:pointer" onclick="myFunction()" >&#9776;&nbsp&nbspThe Locations of Dump Spots -->
- <!-- </span> -->
+<span id="myspan" style="font-size:20px;cursor:pointer" onclick="myFunction()" >&#9776;&nbsp&nbspThe Dumping Hot Spots are:
+ </span>
 <br></br>
 </div>
-<img id="i" alt="Smiley face" width="100" height="100">
+<!-- <img id="i" alt="Smiley face" width="100" height="100"> -->
  
  
 
@@ -32,16 +36,14 @@
 
 <br id="br"></br>
 <script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
-	
-	<!-- jQuery -->
-	<script src="../lib/jquery.js"></script>
+  
+  <!-- jQuery -->
+  <script src="../lib/jquery.js"></script>
 
-	<!-- Bootstrap Core JavaScript -->
-	<script src="../lib/bootstrap.min.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="../lib/bootstrap.min.js"></script>
 
 <script>
-  // Initialize Firebase
-  // TODO: Replace with your project's customized code snippet
   var config = {
   apiKey: "AIzaSyBH5uLSlvmVZnmsQheQjWzgaoeOwPZsciA",
   authDomain: "dumptrace.firebaseapp.com",
@@ -52,39 +54,16 @@
 firebase.initializeApp(config);
 </script>
 <script>
-//document.body.onload = addElement;
 var storage = firebase.storage();
+var database=firebase.database();
+
 var storageRef = storage.ref();
 var imagesRef = storageRef.child('photos');
-https://firebasestorage.googleapis.com/v0/b/dump-trace.appspot.com/o/photos%2F04ddcf5e-5bba-45f4-864e-3f72ee3b5cf5%2Fimage%3A16134?alt=media&token=c5c1da6d-e0cf-4fa8-b882-5616bdc1ab05
 
-imagesRef.child("3b456866-fb37-4efa-a131-b7385b4126f7").getDownloadURL().then(function(url) {
-  // `url` is the download URL for 'images/stars.jpg'
+window.onload=function myFunction() { 
 
-  // This can be downloaded directly:
   
-
-
-  // Or inserted into an <img> element:
-  var img = document.getElementById('i');
-  img.src = url;
-}).catch(function(error) {
-  // Handle any errors
-});
-
-console.log(storageRef);
-console.log(imagesRef);
-
-
-function myFunction() { 
-
-  var x = document.getElementById('r');
-    if (x.style.display === 'none') {
-        x.style.display = 'block';
-
-
-    } else {
-        x.style.display = 'none';
+       
         var count=0;
         <% val.forEach(function(elem){ %>
          
@@ -101,29 +80,43 @@ function myFunction() {
       list.insertBefore(newDiv, list.childNodes[count]); 
 
      $('#newDiv').on('click', function (e) {
-count++;
-<%eleme[6].forEach(function(e){%>
+      count++;
+      <%eleme[6].forEach(function(e){%>
 
-      var Div = document.createElement("LI"); 
-      Div.id="Div"
-     // let storage = FIRStorage.storage().reference(forURL: "gs://dump-trace.appspot.com");
-     var pathref=imagesRef.ref("<%=e%>");
-     console.log(pathref);
-      var newContent = document.createTextNode("<%=e%>"); 
-      Div.appendChild(newContent); 
+console.log("<%=e%>");
+      var Div = document.createElement("img"); 
+      Div.id="<%=e%>"
+      imagesRef.child("<%=e%>").getDownloadURL().then(function(url) {
+      var img = document.getElementById("<%=e%>");
+      img.src = url;
+      img.width="100";
+      img.height="100";
+      $('#<%=e%>').on('click',function(e){
+        var data=database.ref("Address of the Dump spots/"+"<%=e%>");
+        data.on('value', function(snapshot) {
+        var retrieve=snapshot.val().Time;
+        console.log(retrieve);
+});
+
+              })
+      
+
+      }).catch(function(error) {
+         // Handle any errors
+      });
       var list = document.getElementById("myList"); 
       list.insertBefore(Div, list.childNodes[count]); 
-      
+      count++;
        <% });%>
- count++;
+     
 
-       var Div = document.createElement("LI"); 
-      Div.id="Div"
-      var newContent = document.createTextNode("<%=eleme[3]%>"); 
-      Div.appendChild(newContent); 
-       var list = document.getElementById("myList"); 
-       list.insertBefore(Div, list.childNodes[count]); 
- count++;
+ //       var Div = document.createElement("LI"); 
+ //      Div.id="Div"
+ //      var newContent = document.createTextNode("<%=eleme[3]%>"); 
+ //      Div.appendChild(newContent); 
+ //       var list = document.getElementById("myList"); 
+ //       list.insertBefore(Div, list.childNodes[count]); 
+ // count++;
      
 })
      
@@ -132,29 +125,12 @@ count++;
      <% });%>
 
 
-    }
-  // create a new div element 
-  // and give it some content 
-  
+    
   
 }
-
 
 
 </script>
 </body>
 
 </html>
-
-<!-- <li class="dropdown"><a href="#" class="dropdown-toggle"
-            data-toggle="dropdown"><b class="caret"></b></a>
-            
-          <li class="dropdown"><a href="#" class="dropdown-toggle"
-            data-toggle="dropdown">Jo<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="/getBarChartCali">Full Time vs part Time in
-                  CA </a></li>
-              <li><a href="/showmaps">State wise job count</a></li>
-            </ul></li>
-
-          <li><a href="/showtest">Mo</a></li> -->
