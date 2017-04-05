@@ -1,17 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
+
+  <script >
+    var myApp = angular.module('myApp',[]);
+
+myApp.controller('datacontroller',['$scope','$http', function($scope, $http){
+  var config = {
+  apiKey: "AIzaSyBH5uLSlvmVZnmsQheQjWzgaoeOwPZsciA",
+  authDomain: "dumptrace.firebaseapp.com",
+  databaseURL: "https://dump-trace.firebaseio.com/",
+  storageBucket: "gs://dump-trace.appspot.com",
+  
+};
+firebase.initializeApp(config);
+var storage = firebase.storage();
+var database=firebase.database();
+
+var storageRef = storage.ref();
+var imagesRef = storageRef.child('photos');
+$http.get('/listviewData').success(function(response){
+  $scope.data=response.data;
+  console.log(response);  
+})
+$scope.getURL = function(item){
+  //console.log("item");
+imagesRef.child(item).getDownloadURL().then(function(url){
+  var img = document.getElementById(item);
+      img.src = url;
+      img.width="100";
+      img.height="100";
+  $scope.url=url;
+  //return "https://www.google.co.in/images/srpr/logo11w.png";
+})
+}
+$scope.getData=function(item){
+  var data=database.ref("Address of the Dump spots/"+item);
+        data.on('value', function(snapshot){
+          console.log(snapshot.val().Time);
+          console.log(snapshot.val().Latitude);
+          console.log(snapshot.val().Longitude);
+      // var Div = document.getElementById(m); 
+      // Div.text=snapshot.val().Time;
+       // var newContent = document.createTextNode("Date Uploaded on:"+" "+snapshot.val().Time); 
+       // Div.appendChild(newContent); 
+      
+        }) 
+} 
+}]);
+  </script>
+
 <style type="text/css">
       html { height: 100% }
       body { font-family: "Lato", sans-serif;height: 100%; margin: 0; padding: 0 }
       
-      #button {margin-left: 10px;}
+      #button {width:45%;}
       #newDiv {
     width: 100%;
     padding: 25px 0;
@@ -26,14 +76,33 @@
     </style>
 <% include template %>
 </head>
-<body>
-
-
-<div id="r">
+<body  ng-app="myApp" ng-controller="datacontroller">
 <span id="myspan" style="font-size:20px;cursor:pointer" onclick="myFunction()" >&#9776;&nbsp&nbspThe Dumping Hot Spots are:
  </span>
-<br></br>
+<div class="container" class="panel-group" ng-repeat="d in data" Style="margin-top: 10px;">
+
+ <div class="panel panel-default" >
+  <div id="button"  class="panel-body" data-toggle="collapse" data-target="#i-{{$index}}">{{d.Address}}-----{{d.count}}</div>
+ <div id="i-{{$index}}" class="collapse">
+ <div class="col-md-4" ng-repeat="item in d.list">
+<img style="width:100%;height:150px" id="{{item}}" data-toggle="modal" data-target="#m" ng-src="{{getURL(item)}}" />
+
+ </div>
+ 
+    <div class="col-md-6">
+    <div class="panel panel-default">
+    <button type="button" id="main" class="panel-heading" data-toggle="collapse" data-target="#m-{{$index}}">The Location's</button>
+  <div id="m-{{$index}}" class="collapse panel-heading">
+    .......Cordinates are  {{d.Latitude}} , {{d.Longitude}}
+    
+  </div>   
+  </div>  
 </div>
+</div>
+</div>
+</div>
+
+<!-- 
 <!-- <img id="i" alt="Smiley face" width="100" height="100"> -->
  
  
@@ -45,111 +114,78 @@
 <br id="br"></br>
 
 	
-	<!-- jQuery -->
-	<script src="../lib/jquery.js"></script>
-
-	<!-- Bootstrap Core JavaScript -->
-	<script src="../lib/bootstrap.min.js"></script>
-
+	
 <script>
-  var config = {
-  apiKey: "AIzaSyBH5uLSlvmVZnmsQheQjWzgaoeOwPZsciA",
-  authDomain: "dumptrace.firebaseapp.com",
-  databaseURL: "https://dump-trace.firebaseio.com/",
-  storageBucket: "gs://dump-trace.appspot.com",
-  
-};
-firebase.initializeApp(config);
-</script>
-<script>
-var storage = firebase.storage();
-var database=firebase.database();
+window.onload=function myFunction() {      
+//         var count=0;
+    //<% val.forEach(function(elem){ %>
+//    <% elem.forEach(function(eleme){ %>
+//            //var newDiv= document.createElement.className(panel panel-default");
+//       var newDiv = document.createElement("Button");
+//       var panel=document.createElement("panel")
+//       newDiv.id="newDiv"
+//      //newDiv.setclassname="panel-heading";
+//       var newContent = document.createTextNode("<%=eleme[3]%>"+"    -->    "+"<%=eleme[5]%>"); 
+//       newDiv.appendChild(newContent); 
+//       linebreak = document.createElement("br"); 
+//       newDiv.appendChild(linebreak);
+//       // document.getElementById(newDiv).className("container");
+//       var list = document.getElementById("myList"); 
+//       list.insertBefore(newDiv, list.childNodes[count]); 
 
-var storageRef = storage.ref();
-var imagesRef = storageRef.child('photos');
+//      $('#newDiv').on('click', function (e) {
+//       count++;
+//       <%eleme[6].forEach(function(e){%>
 
-window.onload=function myFunction() { 
-
-  
-       
-        var count=0;
-        <% val.forEach(function(elem){ %>
-         
-
-   <% elem.forEach(function(eleme){ %>
-           //var newDiv= document.createElement.className(panel panel-default");
-      var newDiv = document.createElement("Button");
-      var panel=document.createElement("panel")
-      newDiv.id="newDiv"
-     //newDiv.setclassname="panel-heading";
-      var newContent = document.createTextNode("<%=eleme[3]%>"+"    -->    "+"<%=eleme[5]%>"); 
-      newDiv.appendChild(newContent); 
-      linebreak = document.createElement("br"); 
-      newDiv.appendChild(linebreak);
-      // document.getElementById(newDiv).className("container");
-      var list = document.getElementById("myList"); 
-      list.insertBefore(newDiv, list.childNodes[count]); 
-
-     $('#newDiv').on('click', function (e) {
-      count++;
-      <%eleme[6].forEach(function(e){%>
-
-      var Div = document.createElement("img"); 
-      Div.id="<%=e%>"
-      imagesRef.child("<%=e%>").getDownloadURL().then(function(url) 
-{
-      var img = document.getElementById("<%=e%>");
-      img.src = url;
-      img.width="100";
-      img.height="100";
+//       var Div = document.createElement("img"); 
+//       Div.id="<%=e%>"
+//       imagesRef.child("<%=e%>").getDownloadURL().then(function(url) 
+// {
+//       var img = document.getElementById("<%=e%>");
+//       img.src = url;
+//       img.width="100";
+//       img.height="100";
       
-    //count++;
-      $('#<%=e%>').on('click',function(e)
-  {
-        var data=database.ref("Address of the Dump spots/"+"<%=e%>");
-        data.on('value', function(snapshot) 
-      {
-        var retrieve=snapshot.val().Time;
-        console.log(retrieve);
-        //
-        var Div = document.createElement("LI"); 
-      Div.id="Div"
-      var newContent = document.createTextNode("Date Uploaded on:"+" "+snapshot.val().Time+".......Its Cordinates are  "+snapshot.val().Latitude+", "+snapshot.val().Longitude); 
-      Div.appendChild(newContent); 
-       var list = document.getElementById("myList"); 
-       list.insertBefore(Div, list.childNodes[count]); 
- count++;
-      });
+//     //count++;
+//       $('#<%=e%>').on('click',function(e)
+//   {
+//         var data=database.ref("Address of the Dump spots/"+"<%=e%>");
+//         data.on('value', function(snapshot) 
+//       {
+//         var retrieve=snapshot.val().Time;
+//         console.log(retrieve);
+//         //
+//         var Div = document.createElement("LI"); 
+//       Div.id="Div"
+//       var newContent = document.createTextNode("Date Uploaded on:"+" "+snapshot.val().Time+".......Its Cordinates are  "+snapshot.val().Latitude+", "+snapshot.val().Longitude); 
+//       Div.appendChild(newContent); 
+//        var list = document.getElementById("myList"); 
+//        list.insertBefore(Div, list.childNodes[count]); 
+//  count++;
+//       });
 
-  })
-      
-
-      }).catch(function(error) {
-         // Handle any errors
-      });
-      var list = document.getElementById("myList"); 
-      list.insertBefore(Div, list.childNodes[count]); 
-      count++;
-       <% });%>
+//   })
+//       }).catch(function(error) {
+//          // Handle any errors
+//       });
+//       var list = document.getElementById("myList"); 
+//       list.insertBefore(Div, list.childNodes[count]); 
+//       count++;
+//        <% });%>
      
 
- //       var Div = document.createElement("LI"); 
- //      Div.id="Div"
- //      var newContent = document.createTextNode("<%=eleme[3]%>"); 
- //      Div.appendChild(newContent); 
- //       var list = document.getElementById("myList"); 
- //       list.insertBefore(Div, list.childNodes[count]); 
- // count++;
+//  //       var Div = document.createElement("LI"); 
+//  //      Div.id="Div"
+//  //      var newContent = document.createTextNode("<%=eleme[3]%>"); 
+//  //      Div.appendChild(newContent); 
+//  //       var list = document.getElementById("myList"); 
+//  //       list.insertBefore(Div, list.childNodes[count]); 
+//  // count++;
      
-})
+// })
      
-        <% });%>
-
-     <% });%>
-
-
-    
-  
+//         <% });%>
+    // <% });%>  
 }
 
 

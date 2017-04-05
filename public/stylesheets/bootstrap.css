@@ -1393,6 +1393,9 @@ pre code {
   margin-right: auto;
   margin-left: auto;
 }
+.hidden{
+       display:none;
+    }
 @media (min-width: 768px) {
   .container {
     width: 750px;

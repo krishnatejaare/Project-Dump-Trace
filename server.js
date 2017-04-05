@@ -53,7 +53,8 @@ var x=1;
 ref.orderByChild("Longitude"+"Latitude").on("child_added", function(snapshot) {
   var temp=[];
    data.push(snapshot.val());
- // console.log(data);
+  // data.id=snapshot.key;
+ // console.log(snapshot.key);
   temp.push(snapshot.val().Latitude);
   temp.push(snapshot.val().Longitude);
   temp.push(snapshot.val().Time);
@@ -106,10 +107,48 @@ ref.on("value", function(snapshot) {
 
 function sr(){
   //console.log(final);
-  console.log(data.length);
+  //console.log(data.length);
   data.forEach(function (d){
     
-      console.log(d);
+      //console.log(d);  
+// for (var key in d) {
+//     console.log(key + " -> " + d[key]);
+// }
+})
+}
+
+setTimeout(sr,4000);
+var x=[];
+function json(){
+  data.forEach(function (element){
+    var count=0;
+    data.forEach(function (e){
+      if(element.Address==e.Address)
+        count++;
+      if(count==1){var pa=1;
+
+        x.forEach(function(f){
+          if(f.Address==element.Address){
+              pa=0;}
+        })
+        if(pa==1){
+          x.push(element);
+         // console.log(x);
+        }
+      }
+    })
+  })
+}
+
+setTimeout(json,4000);
+function ui(){
+  //console.log(final);
+  console.log("x "+ x.length);
+  x.forEach(function (d){
+    
+      d.list.forEach(function (f){
+        console.log(f);
+      })
     
 // for (var key in d) {
   
@@ -119,7 +158,7 @@ function sr(){
 })
 }
 
-setTimeout(sr,10000);
+setTimeout(ui,5000);
 
 //listing the different places and its count
 var final=[];
@@ -172,34 +211,13 @@ data.forEach(function (element){
   
   if(element.Address==first[3])
     //if(element.count==null){
+   { element.id=first[4];
     element.count=check;
     element.list=ids;
-    
+  }
    // console.log(element);
     //}
 })
-  // Zeta.forEach(function(d){
-  //   if(d.address==first[3])
-  //     {prit=0;
-       
-  //     }
-    
-  // })
-  // if(prit==1){
-  //   var beta=[];
-  //   beta.latitude=first[0];
-  //   beta.longitude=first[1];
-  //   beta.time=first[2];
-  //   beta.address=first[3];
-  //   beta.count=check;
-  //   beta.listofids=ids;
-  //   Zeta.push(beta);
-    
-  // //   beta.count(check);
-  // //   beta.listofids(ids);
-  // }
-
-
   
   final.forEach(function(hash)
   {
@@ -302,20 +320,25 @@ function pri(){
 setTimeout(pri, 2000);
 
 app.get('/a',function(req,res){
-  res.render('pages/panel.ejs',{val:final});
+  res.render('pages/image.ejs',{val:final,data:x});
 });
 
 
 app.get('/',function(req,res){
   //console.log(object);
-  console.log(data);
-  console.log(data.count);
-	res.render('pages/about.ejs');
+ // console.log(data);
+ // console.log(data.count);
+  res.render('pages/about.ejs');
 });
 
 app.get('/ListView',function(req,res){
   res.render('pages/listview.ejs',{val:final});
 });
+
+app.get('/listviewData',function(req,res){
+  console.log("length"+data.length);
+  res.send({data:x});
+})
 
 app.get('/MapView',function(req,res){
   i=1;
