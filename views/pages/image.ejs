@@ -1,166 +1,186 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
-<style type="text/css">
-      html { height: 100% }
-      body { font-family: "Lato", sans-serif;height: 100%; margin: 0; padding: 0 }
-      
-      #button {margin-left: 10px;}
-      #newDiv {
-    width: 100%;
-    padding: 25px 0;
-    text-align: center;
-    background-color: lightgreen;
-    margin-top:20px;
-}
-      #i{
-        width:100px;
-        height:100px;
-      }
-    </style>
-<% include template %>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+ <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+
+
+
 </head>
+
 <body>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+    <script type='text/javascript'>
 
 
-<div id="r">
-<span id="myspan" style="font-size:20px;cursor:pointer" onclick="myFunction()" >&#9776;&nbsp&nbspThe Dumping Hot Spots are:
- </span>
-<br></br>
-</div>
-<!-- <img id="i" alt="Smiley face" width="100" height="100"> -->
- 
- 
-
-<ul id="myList">
+$(function() {
+  var array=[];
+  var count=[];
   
-</ul>
+  <%val.forEach(function(element){%>
+    var temp=[];
 
-<br id="br"></br>
+    temp.push("<%=element.Address%>"+":    "+"     "+<%=element.count%>);
+    temp.concat(":");
+    temp.concat(<%=element.count%>)
+    temp.push(<%=element.count%>);
+    count.push(<%=element.count%>);
+    array.push(temp);  
+  <%})%>
 
+  for(var i=0;i<array.length;i++){
+    console.log(array[i]);
+  }
+var datearray=[];
+  <%date.forEach(function(element){ %>
+var temp=[];
+<% element.forEach(function(e){ %>
+  console.log("<%=e[2]%>");
+temp.push("<%=e[2]%>");
+temp.push(<%=e[5]%>);
+datearray.push(temp);
+<%})%>
+    <%})%>
   
-  <!-- jQuery -->
-  <script src="../lib/jquery.js"></script>
+   $('#container').highcharts({
+        chart: {
+            zoomType: 'x'
+        },
+        title: {
+            text: 'Graph representing Location and its count of number of incidents'
+        },
+        subtitle: {
+            text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+        },
+        xAxis: {
+            title: {
+                text: 'Location'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'number of incidents'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            },
+            pie: { allowPointSelect: true, cursor: 'pointer' }
+        },
 
-  <!-- Bootstrap Core JavaScript -->
-  <script src="../lib/bootstrap.min.js"></script>
+        // series: [{
+        //     type: 'column',
+        //     name: 'Count is',
+        //     data:[
+        //     {name:'San Jose',x:0,y:10},
+        //     {name:'Sunnyvale',x:1,y:2},
+        //     {name:'Mountain View',x:2,y:5}]
+        // }]
+        
+                    
+                    series: [{ 
+                      type:'pie',
+                      data:array
+                      }]
+//         chart: {
+                           
+//                             type: 'column'
+//                         },
+//                         title: {
+//                             text: 'Dump incident trends'
+//                         },
+//                         /*  subtitle: {
+//                          text: 'Source: WorldClimate.com'
+//                          }, */
 
-<script>
-  var config = {
-  apiKey: "AIzaSyBH5uLSlvmVZnmsQheQjWzgaoeOwPZsciA",
-  authDomain: "dumptrace.firebaseapp.com",
-  databaseURL: "https://dump-trace.firebaseio.com/",
-  storageBucket: "gs://dump-trace.appspot.com",
-  
-};
-firebase.initializeApp(config);
-</script>
-<script>
-var storage = firebase.storage();
-var database=firebase.database();
+//                         xAxis: {
+//                             categories: [
+//                                 'Date'
 
-var storageRef = storage.ref();
-var imagesRef = storageRef.child('photos');
-
-window.onload=function myFunction() { 
-
-  
-       
-        var count=0;
-        <% val.forEach(function(elem){ %>
-         
-
-   <% elem.forEach(function(eleme){ %>
-           //var newDiv= document.createElement.className(panel panel-default");
-      var newDiv = document.createElement("Button");
-      var panel=document.createElement("panel")
-      newDiv.id="newDiv"
-     //newDiv.setclassname="panel-heading";
-      var newContent = document.createTextNode("<%=eleme[3]%>"+"    -->    "+"<%=eleme[5]%>"); 
-      newDiv.appendChild(newContent); 
-      linebreak = document.createElement("br"); 
-      newDiv.appendChild(linebreak);
-      // document.getElementById(newDiv).className("container");
-      var list = document.getElementById("myList"); 
-      list.insertBefore(newDiv, list.childNodes[count]); 
-
-     $('#newDiv').on('click', function (e) {
-      count++;
-      <%eleme[6].forEach(function(e){%>
-
-      var Div = document.createElement("img"); 
-      Div.id="<%=e%>"
-      imagesRef.child("<%=e%>").getDownloadURL().then(function(url) 
-{
-      var img = document.getElementById("<%=e%>");
-      img.src = url;
-      img.width="100";
-      img.height="100";
-      
-    //count++;
-      $('#<%=e%>').on('click',function(e)
-  {
-        var data=database.ref("Address of the Dump spots/"+"<%=e%>");
-        data.on('value', function(snapshot) 
-      {
-        var retrieve=snapshot.val().Time;
-        console.log(retrieve);
-        //
-        var Div = document.createElement("LI"); 
-      Div.id="Div"
-      var newContent = document.createTextNode("Date Uploaded on:"+" "+snapshot.val().Time+".......Its Cordinates are  "+snapshot.val().Latitude+", "+snapshot.val().Longitude); 
-      Div.appendChild(newContent); 
-       var list = document.getElementById("myList"); 
-       list.insertBefore(Div, list.childNodes[count]); 
- count++;
-      });
-
-  })
-      
-
-      }).catch(function(error) {
-         // Handle any errors
-      });
-      var list = document.getElementById("myList"); 
-      list.insertBefore(Div, list.childNodes[count]); 
-      count++;
-       <% });%>
-     
-
- //       var Div = document.createElement("LI"); 
- //      Div.id="Div"
- //      var newContent = document.createTextNode("<%=eleme[3]%>"); 
- //      Div.appendChild(newContent); 
- //       var list = document.getElementById("myList"); 
- //       list.insertBefore(Div, list.childNodes[count]); 
- // count++;
-     
-})
-     
-        <% });%>
-
-     <% });%>
-
-
-    
-  
-}
-
-
+//                             ],
+//                             crosshair: true
+//                         }
+//                         ,
+//                         yAxis: {
+//                             min: 0,
+//                             title: {
+//                                 text: 'Address'
+//                             }
+//                         }
+//                         ,
+//                         tooltip: {
+//                             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+//                             pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+//                             '<td style="padding:0"><b>{point.y:.1f} bn</b></td></tr>',
+//                             footerFormat: '</table>',
+//                             shared: true,
+//                             useHTML: true
+//                         }
+//                         ,
+//                         plotOptions: {
+//                             column: {
+//                                 pointPadding: 0,
+//                                 borderWidth: 0
+//                             }
+//                         }
+//                         ,
+//                         series:[{
+//                         data: datearray
+// }]
+                             
+              
+          
+    });
+});
 </script>
 </body>
 
+
 </html>
-
- 
-
-
-
-

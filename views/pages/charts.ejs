@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+ <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse"
+          data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span> <span
+            class="icon-bar"></span> <span class="icon-bar"></span> <span
+            class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Dump Trace</a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse"
+        id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li>
+            <a href="/MapView">Map View</a>
+          </li>
+          <li>
+            <a href="/ListView">List View</a>
+          </li>
+          <li>
+            <a href="/ChartView">Chart View</a>
+          </li>
+
+          <!-- <li class="dropdown"><a href="#" class="dropdown-toggle"
+            data-toggle="dropdown">K<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/companyRatingAnalysis">Ratings</a></li>
+              <li><a href="/showCompanyReviews">Reviews</a></li>
+            </ul></li>
+          <li class="dropdown"><a href="#" class="dropdown-toggle"
+            data-toggle="dropdown">J<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/getBarChartCali">Full Time vs part Time in
+                  CA </a></li>
+              <li><a href="/showmaps">State wise job count</a></li> -->
+            </ul></li>
+
+          <!-- <li><a href="/showtest">M</a></li> -->
+        </ul>
+        <!-- /.navbar-collapse -->
+      </div>
+      
+   
+  
+
+      <!-- /.container -->
+  </nav>
+
+
+</head>
+
+<body>
+<br></br>
+<br></br>
+
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<br></br>
+<br></br>
+
+<div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+    <script type='text/javascript'>
+
+
+$(function() {
+  var array=[];
+  var count=[];
+  
+  <%val.forEach(function(element){%>
+    var temp=[];
+
+    temp.push("<%=element.Address%>"+":    "+"     "+<%=element.count%>);
+    temp.concat(":");
+    temp.concat(<%=element.count%>)
+    temp.push(<%=element.count%>);
+    count.push(<%=element.count%>);
+    array.push(temp);  
+  <%})%>
+
+  
+var datearray=[];
+  <%date.forEach(function(element){ %>
+var temp=[];
+var convert=[];
+<% element.forEach(function(e){ %>
+  var str="<%=e[2]%>";
+  var dam=new Date(str);
+  console.log(dam.getTime());
+temp.push(dam.getTime());
+convert.push(temp);
+temp.push(<%=e[5]%>);
+datearray.push(temp);
+<%})%>
+    <%})%>
+  
+  
+
+
+  
+$('#container2').highcharts({
+      
+
+    
+        chart: {
+            zoomType: 'x'
+        },
+        title: {
+            text: 'Incidents occured on each day'
+        },
+        subtitle: {
+            text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+        },
+        xAxis: {
+            
+             type: 'datetime',
+            
+        title:{
+          text:"Days"
+        }
+        },
+        yAxis: {
+            title: {
+                text: 'Incident Count'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            }
+        },
+
+        series: [{
+            type: 'area',
+            name: 'Incidents occured on this day',
+            data:datearray
+        }]
+    });
+})
+
+$(function() {
+  var array=[];
+  var count=[];
+  
+  <%val.forEach(function(element){%>
+    var temp=[];
+
+    temp.push("<%=element.Address%>"+":    "+"     "+<%=element.count%>);
+    temp.concat(":");
+    temp.concat(<%=element.count%>)
+    temp.push(<%=element.count%>);
+    count.push(<%=element.count%>);
+    array.push(temp);  
+  <%})%>
+
+  
+$('#container').highcharts({
+          
+        chart: {
+            zoomType: 'x'
+        },
+        title: {
+            text: 'Graph representing Location and its count of number of incidents'
+        },
+        subtitle: {
+            text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+        },
+        xAxis: {
+            title: {
+                text: 'Location'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'number of incidents'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            },
+            pie: { allowPointSelect: true, cursor: 'pointer' }
+        },
+
+        // series: [{
+        //     type: 'column',
+        //     name: 'Count is',
+        //     data:[
+        //     {name:'San Jose',x:0,y:10},
+        //     {name:'Sunnyvale',x:1,y:2},
+        //     {name:'Mountain View',x:2,y:5}]
+        // }]
+        
+                    
+                    series: [{ 
+                      type:'pie',
+                      name: 'Incident Count',
+                      data:array
+                      }]
+    });
+})
+  
+   
+</script>
+</body>
+
+
+</html>

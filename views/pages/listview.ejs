@@ -77,9 +77,9 @@ $scope.getData=function(item){
 <% include template %>
 </head>
 <body  ng-app="myApp" ng-controller="datacontroller">
-<span id="myspan" style="font-size:20px;cursor:pointer" onclick="myFunction()" >&#9776;&nbsp&nbspThe Dumping Hot Spots are:
+<span id="myspan" style="font-size:20px, cursor:pointer" onclick="myFunction()" >&#9776;&nbsp&nbspThe Dumping Hot Spots are:
  </span>
-<div class="container" class="panel-group" ng-repeat="d in data" Style="margin-top: 10px;">
+<div class="container" style="cursor:pointer" class="panel-group" ng-repeat="d in data" Style="margin-top: 10px;">
 
  <div class="panel panel-default" >
   <div id="button"  class="panel-body" data-toggle="collapse" data-target="#i-{{$index}}">{{d.Address}}-----{{d.count}}</div>
@@ -89,15 +89,7 @@ $scope.getData=function(item){
 
  </div>
  
-    <div class="col-md-6">
-    <div class="panel panel-default">
-    <button type="button" id="main" class="panel-heading" data-toggle="collapse" data-target="#m-{{$index}}">The Location's</button>
-  <div id="m-{{$index}}" class="collapse panel-heading">
-    .......Cordinates are  {{d.Latitude}} , {{d.Longitude}}
     
-  </div>   
-  </div>  
-</div>
 </div>
 </div>
 </div>
