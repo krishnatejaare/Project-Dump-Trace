@@ -12,6 +12,7 @@ html {
 }
 body {
   margin: 0;
+  background: navy !important; 
 }
 article,
 aside,
@@ -5299,6 +5300,7 @@ a.list-group-item-danger.active:focus {
 .panel-group {
   margin-bottom: 20px;
   cursor:pointer;
+
 }
 .panel-group .panel {
   margin-bottom: 0;

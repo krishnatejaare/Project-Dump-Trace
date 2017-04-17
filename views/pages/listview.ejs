@@ -59,7 +59,7 @@ $scope.getData=function(item){
 
 <style type="text/css">
       html { height: 100% }
-      body { font-family: "Lato", sans-serif;height: 100%; margin: 0; padding: 0 }
+      body { font-family: "Lato", sans-serif;height: 100%; margin: 0; padding: 0;background: brown !important }
       
       #button {width:45%;}
       #newDiv {
@@ -76,9 +76,10 @@ $scope.getData=function(item){
     </style>
 <% include template %>
 </head>
-<body  ng-app="myApp" ng-controller="datacontroller">
-<span id="myspan" style="font-size:20px, cursor:pointer" onclick="myFunction()" >&#9776;&nbsp&nbspThe Dumping Hot Spots are:
- </span>
+<body   id="body"  ng-app="myApp" ng-controller="datacontroller">
+<h3 style="color:gold;">The Dumping Hot Spots are:
+ </h3>
+ <br></br>
 <div class="container" style="cursor:pointer" class="panel-group" ng-repeat="d in data" Style="margin-top: 10px;">
 
  <div class="panel panel-default" >

@@ -132,7 +132,9 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
 
  <style type="text/css">
       html { height: 100% }
-      body { font-family: "Lato", sans-serif;height: 100%; margin: 0; padding: 0 }
+      body { font-family: "Lato", sans-serif;height: 100%; margin: 0; padding: 0;background: brown !important }
+      #day{color:white;background: black}
+      #day2{color:white;background: black}
       #map_canvas { height: 100% }
       .sidenav {
     height: 100%;
@@ -232,8 +234,8 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
     <div class="row" style="margin: 0 auto; margin-top:25px">
       <div class="col-lg-12">
     
-  <font color="green">Pick a Time Line From: <input type="date" id="day"></input></font>
-  <font color="green">To: <input type="date" id="day2"></input></font>
+  <font color="white">Pick a Time Line From: <input type="date"  id="day"></input></font>
+  <font color="white">To: <input type="date" id="day2"></input></font>
   <button type="button" onclick="process()">Submit!</button>
 
 </div>

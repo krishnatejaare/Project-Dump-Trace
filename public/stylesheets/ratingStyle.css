@@ -5,7 +5,7 @@ body {
   font-size: 13px;
   line-height: 1.35em;
   color: #222;
-  background: #fff;
+  background: navy !important; 
 }
 a {
   text-decoration: none;
