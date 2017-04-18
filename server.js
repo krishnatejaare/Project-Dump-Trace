@@ -122,6 +122,71 @@ function ui(){
 }
 
 setTimeout(ui,5000);
+
+//listing areas and its count
+var area=[];
+var ria=[];
+var fox=1;
+var i=0;
+var j=0;
+ var SanJose=[];
+ var usa=[];
+function datesandcount1(){
+  
+pairs.forEach(function(first){
+  console.log("krishnatejaare is a very good");
+  var String=first[3];
+  console.log("string is"+String);
+ // var list=["Sunnyvale","San Jose","Cupertino", "Milpitas","Palo Alto","Mountain View","Fremont","Campbell","Union City"];
+  var list=["USA","San Jose"];
+  list.forEach(function(e){
+    var swift=String.search(e);
+    if(swift!=-1)
+      {
+        if(e=="San Jose"){
+          i++;
+        //console.log(SanJose);
+      }
+      if(e=="USA"){
+          j++;
+       
+        
+      }
+        // var temp=[];
+        // temp.push(e);
+        // temp.push(fox);
+        // ria.push(temp);
+      }
+  })
+
+  // fox++;
+  
+    
+});
+SanJose.push("San Jose");
+  SanJose.push(i);
+  usa.push("USA");
+  usa.push(j);
+  ria.push(SanJose);
+  ria.push(usa);
+console.log(SanJose);
+console.log(usa);
+console.log(ria);
+// console.log("krishna teja area");
+// console.log(ria.length);
+// var tiger=[];
+// for(var i=0;i<ria.length;i++){
+//   console.log("areaarray is")
+  
+//        console.log(ria[i]);
+      
+//     }
+    
+    
+//     console.log(tiger);
+}
+setTimeout(datesandcount1,5000);
+
 //listing the differenct dates and their respective incident count
 
 var date=[];
