@@ -58,6 +58,8 @@ ref.orderByChild("Longitude"+"Latitude").on("child_added", function(snapshot) {
 });
 var air=[];
 var ti=[];
+
+
 ref.on("value", function(snapshot) {
       var newPost = snapshot.val();
       var temp=[];
@@ -85,6 +87,8 @@ ref.on("value", function(snapshot) {
          if(pair[0]==null)
             pair.push(temp);
             air=pair;
+            
+
       });
   });
 var x=[];
@@ -152,10 +156,7 @@ pairs.forEach(function(first){
        
         
       }
-        // var temp=[];
-        // temp.push(e);
-        // temp.push(fox);
-        // ria.push(temp);
+        
       }
   })
 
@@ -172,18 +173,6 @@ SanJose.push("San Jose");
 console.log(SanJose);
 console.log(usa);
 console.log(ria);
-// console.log("krishna teja area");
-// console.log(ria.length);
-// var tiger=[];
-// for(var i=0;i<ria.length;i++){
-//   console.log("areaarray is")
-  
-//        console.log(ria[i]);
-      
-//     }
-    
-    
-//     console.log(tiger);
 }
 setTimeout(datesandcount1,5000);
 
@@ -266,6 +255,10 @@ data.forEach(function (element){
 });
 console.log("krishna teja");
 //console.log(data);
+date.forEach(function(e){
+  e.sort();
+})
+date.sort();
 
 for(var i=0;i<date.length;i++){
   console.log("datearray is")
@@ -278,6 +271,8 @@ setTimeout(datesandcount,4000);
 var final=[];
 var Zeta=[];
 function filter1(){
+  pairs=pairs.concat(air);
+  air=[];
   var i=0;
  var kri=[];
  kri.push(pairs[0]);
@@ -433,11 +428,15 @@ app.get('/charts',function(req,res){
 });
 
 app.get('/ListView',function(req,res){
+   filter1();
+   json();
   res.render('pages/listview.ejs',{val:final});
 });
 
 app.get('/listviewData',function(req,res){
-  console.log("length"+data.length);
+  //console.log("length"+data.length);
+  filter1();
+   json();
   res.send({data:x});
 })
 
@@ -448,10 +447,10 @@ time=time.concat(ti);
   pairs=pairs.concat(air);
   air=[];
   for(var i=0;i<pairs.length;i++){
-        console.log(pairs[i]);
+        //console.log(pairs[i]);
     }
     
-console.log(pairs.length);
+//console.log(pairs.length);
  res.render('pages/index.ejs',{val:pairs});
   
 });
