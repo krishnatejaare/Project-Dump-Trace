@@ -104,6 +104,10 @@ background-color: #93B874;
 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <br></br>
 <br></br>
+<div id="container3" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div id="container4" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div id="container5" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div id="container6" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 <div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
@@ -113,6 +117,7 @@ background-color: #93B874;
 $(function() {
   var array=[];
   var count=[];
+  
   
   <%val.forEach(function(element){%>
     var temp=[];
@@ -131,7 +136,7 @@ var datearray=[];
 var temp=[];
 var convert=[];
 <% element.forEach(function(e){ %>
-  var str="<%=e[2]%>";
+  var str="<%=e[0]%>";
   var dam=new Date(str);
   console.log(dam.getTime());
 temp.push(dam.getTime());
@@ -211,20 +216,14 @@ $('#container2').highcharts({
 })
 
 $(function() {
-  var array=[];
-  var count=[];
-  
-  <%val.forEach(function(element){%>
+  var bount=[];
+  <% bod.forEach(function(element){%>
     var temp=[];
+temp.push("<%=element[0]%>"+":  "+<%=element[1]%>);
+temp.push(<%=element[1]%>);
+bount.push(temp);
 
-    temp.push("<%=element.Address%>"+":    "+"     "+<%=element.count%>);
-    temp.concat(":");
-    temp.concat(<%=element.count%>)
-    temp.push(<%=element.count%>);
-    count.push(<%=element.count%>);
-    array.push(temp);  
   <%})%>
-
   
 $('#container').highcharts({
           
@@ -293,7 +292,480 @@ $('#container').highcharts({
                     series: [{ 
                       type:'pie',
                       name: 'Incident Count',
-                      data:array
+                      data:bount
+                      }]
+    });
+})
+
+$(function() {
+  var array1=[];
+    var array2=[];
+    var array3=[];
+    var array4=[];
+  <% bod.forEach(function(elem){%>
+    
+  var count=[];
+  var target="<%=elem[0]%>";
+  
+  <%val.forEach(function(element){%>
+    var temp=[];
+    var string='<%=element.city%>';
+//console.log('string');
+if(string==target){
+    temp.push("<%=element.Address%>"+":    "+"     "+<%=element.count%>);
+    temp.concat(":");
+    temp.concat(<%=element.count%>)
+    temp.push(<%=element.count%>);
+    count.push(<%=element.count%>);
+    if(target=="San Jose"){
+    array1.push(temp);  
+       console.log("Sanjose is "+array1);
+  }
+    if(target=="Sunnyvale"){
+    array2.push(temp);
+    console.log("Sunnyvale is "+array2);
+  
+      }
+    if(target=="Santa Clara"){
+    array3.push(temp);
+    console.log("Santaclara is "+array3);
+      }
+    if(target=="Milpitas"){
+    array4.push(temp);
+    console.log(" Milpitas is " + array4); 
+     }
+  
+
+  }
+  <%})%>
+  <%})%>
+  console.log("Sanjose is "+array1);
+  console.log("Sunnyvale is "+array2);
+  console.log("Santaclara is "+array3);
+  console.log(" Milpitas is " + array4); 
+  
+$('#container3').highcharts({
+          
+        chart: {
+            zoomType: 'x'
+
+        },
+        title: {
+            text: 'Graph representing Location and its count of number of incidents'
+        },
+        subtitle: {
+            text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+        },
+        xAxis: {
+            title: {
+                text: 'Location'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'number of incidents'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            },
+            pie: { allowPointSelect: true, cursor: 'pointer' }
+        },
+
+        // series: [{
+        //     type: 'column',
+        //     name: 'Count is',
+        //     data:[
+        //     {name:'San Jose',x:0,y:10},
+        //     {name:'Sunnyvale',x:1,y:2},
+        //     {name:'Mountain View',x:2,y:5}]
+        // }]
+        
+                    
+                    series: [{ 
+                      type:'pie',
+                      name: 'Incident Count',
+                      data:array1
+                      }]
+    });
+})
+$(function() {
+  var array1=[];
+    var array2=[];
+    var array3=[];
+    var array4=[];
+  <% bod.forEach(function(elem){%>
+    
+  var count=[];
+  var target="<%=elem[0]%>";
+  
+  <%val.forEach(function(element){%>
+    var temp=[];
+    var string='<%=element.city%>';
+//console.log('string');
+if(string==target){
+    temp.push("<%=element.Address%>"+":    "+"     "+<%=element.count%>);
+    temp.concat(":");
+    temp.concat(<%=element.count%>)
+    temp.push(<%=element.count%>);
+    count.push(<%=element.count%>);
+    if(target=="San Jose"){
+    array1.push(temp);  
+       console.log("Sanjose is "+array1);
+  }
+    if(target=="Sunnyvale"){
+    array2.push(temp);
+    console.log("Sunnyvale is "+array2);
+  
+      }
+    if(target=="Santa Clara"){
+    array3.push(temp);
+    console.log("Santaclara is "+array3);
+      }
+    if(target=="Milpitas"){
+    array4.push(temp);
+    console.log(" Milpitas is " + array4); 
+     }
+  
+
+  }
+  <%})%>
+  <%})%>
+  console.log("Sanjose is "+array1);
+  console.log("Sunnyvale is "+array2);
+  console.log("Santaclara is "+array3);
+  console.log(" Milpitas is " + array4); 
+  
+$('#container4').highcharts({
+          
+        chart: {
+            zoomType: 'x'
+
+        },
+        title: {
+            text: 'Graph representing Location and its count of number of incidents'
+        },
+        subtitle: {
+            text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+        },
+        xAxis: {
+            title: {
+                text: 'Location'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'number of incidents'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            },
+            pie: { allowPointSelect: true, cursor: 'pointer' }
+        },
+
+        // series: [{
+        //     type: 'column',
+        //     name: 'Count is',
+        //     data:[
+        //     {name:'San Jose',x:0,y:10},
+        //     {name:'Sunnyvale',x:1,y:2},
+        //     {name:'Mountain View',x:2,y:5}]
+        // }]
+        
+                    
+                    series: [{ 
+                      type:'pie',
+                      name: 'Incident Count',
+                      data:array2
+                      }]
+    });
+})
+$(function() {
+  var array1=[];
+    var array2=[];
+    var array3=[];
+    var array4=[];
+  <% bod.forEach(function(elem){%>
+    
+  var count=[];
+  var target="<%=elem[0]%>";
+  
+  <%val.forEach(function(element){%>
+    var temp=[];
+    var string='<%=element.city%>';
+//console.log('string');
+if(string==target){
+    temp.push("<%=element.Address%>"+":    "+"     "+<%=element.count%>);
+    temp.concat(":");
+    temp.concat(<%=element.count%>)
+    temp.push(<%=element.count%>);
+    count.push(<%=element.count%>);
+    if(target=="San Jose"){
+    array1.push(temp);  
+       console.log("Sanjose is "+array1);
+  }
+    if(target=="Sunnyvale"){
+    array2.push(temp);
+    console.log("Sunnyvale is "+array2);
+  
+      }
+    if(target=="Santa Clara"){
+    array3.push(temp);
+    console.log("Santaclara is "+array3);
+      }
+    if(target=="Milpitas"){
+    array4.push(temp);
+    console.log(" Milpitas is " + array4); 
+     }
+  
+
+  }
+  <%})%>
+  <%})%>
+  console.log("Sanjose is "+array1);
+  console.log("Sunnyvale is "+array2);
+  console.log("Santaclara is "+array3);
+  console.log(" Milpitas is " + array4); 
+  
+$('#container5').highcharts({
+          
+        chart: {
+            zoomType: 'x'
+
+        },
+        title: {
+            text: 'Graph representing Location and its count of number of incidents'
+        },
+        subtitle: {
+            text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+        },
+        xAxis: {
+            title: {
+                text: 'Location'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'number of incidents'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            },
+            pie: { allowPointSelect: true, cursor: 'pointer' }
+        },
+
+        // series: [{
+        //     type: 'column',
+        //     name: 'Count is',
+        //     data:[
+        //     {name:'San Jose',x:0,y:10},
+        //     {name:'Sunnyvale',x:1,y:2},
+        //     {name:'Mountain View',x:2,y:5}]
+        // }]
+        
+                    
+                    series: [{ 
+                      type:'pie',
+                      name: 'Incident Count',
+                      data:array3
+                      }]
+    });
+})
+$(function() {
+  var array1=[];
+    var array2=[];
+    var array3=[];
+    var array4=[];
+  <% bod.forEach(function(elem){%>
+    
+  var count=[];
+  var target="<%=elem[0]%>";
+  
+  <%val.forEach(function(element){%>
+    var temp=[];
+    var string='<%=element.city%>';
+//console.log('string');
+if(string==target){
+    temp.push("<%=element.Address%>"+":    "+"     "+<%=element.count%>);
+    temp.concat(":");
+    temp.concat(<%=element.count%>)
+    temp.push(<%=element.count%>);
+    count.push(<%=element.count%>);
+    if(target=="San Jose"){
+    array1.push(temp);  
+       console.log("Sanjose is "+array1);
+  }
+    if(target=="Sunnyvale"){
+    array2.push(temp);
+    console.log("Sunnyvale is "+array2);
+  
+      }
+    if(target=="Santa Clara"){
+    array3.push(temp);
+    console.log("Santaclara is "+array3);
+      }
+    if(target=="Milpitas"){
+    array4.push(temp);
+    console.log(" Milpitas is " + array4); 
+     }
+  
+
+  }
+  <%})%>
+  <%})%>
+  console.log("Sanjose is "+array1);
+  console.log("Sunnyvale is "+array2);
+  console.log("Santaclara is "+array3);
+  console.log(" Milpitas is " + array4); 
+  
+$('#container6').highcharts({
+          
+        chart: {
+            zoomType: 'x'
+
+        },
+        title: {
+            text: 'Graph representing Location and its count of number of incidents'
+        },
+        subtitle: {
+            text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+        },
+        xAxis: {
+            title: {
+                text: 'Location'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'number of incidents'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            },
+            pie: { allowPointSelect: true, cursor: 'pointer' }
+        },
+
+        // series: [{
+        //     type: 'column',
+        //     name: 'Count is',
+        //     data:[
+        //     {name:'San Jose',x:0,y:10},
+        //     {name:'Sunnyvale',x:1,y:2},
+        //     {name:'Mountain View',x:2,y:5}]
+        // }]
+        
+                    
+                    series: [{ 
+                      type:'pie',
+                      name: 'Incident Count',
+                      data:array4
                       }]
     });
 })

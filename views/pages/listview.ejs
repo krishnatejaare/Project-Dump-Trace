@@ -79,8 +79,10 @@ $scope.getData=function(item){
 <body   id="body"  ng-app="myApp" ng-controller="datacontroller">
 <h3 style="color:gold;">The Dumping Hot Spots are:
  </h3>
- <br></br>
-<div class="container" style="cursor:pointer" class="panel-group" ng-repeat="d in data" Style="margin-top: 10px;">
+<br></br>
+<font color="gold"> Search:</font><input type="text" placeholder="Search List by City" ng-model="searchtext.city"/>
+<br></br>
+<div class="container" style="cursor:pointer" class="panel-group" ng-repeat="d in data| filter:searchtext" Style="margin-top: 10px;">
 
  <div class="panel panel-default" >
   <div id="button"  class="panel-body" data-toggle="collapse" data-target="#i-{{$index}}">{{d.Address}}-----{{d.count}}</div>

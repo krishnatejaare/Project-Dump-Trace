@@ -28,27 +28,31 @@
       var value2=new Date(day2);
       var newMarkers=[];
       var mapmarkers=[];
+      console.log("TESTTTT");
      // console.log(value.toString());
       <% val.forEach(function(elem){ %>
-        var date= new Date('<%=elem[2]%>');
-       // console.log(date.toString());
+        var date= new Date("<%=elem.Time%>");
+       console.log(date.getTime());
        if(date.getTime()>=value.getTime())
         {if(date.getTime()<=value2.getTime()){
           console.log(date);
-          
+          console.log("TTTTTTT");
           var temp=[];
-          temp.push(<%=elem[0]%>);
+          temp[0]=<%=elem.Latitude%>;
+          temp[1]=<%=elem.Longitude%>
+          //temp.push(<%=elem.Latitude%>);
          // console.log(temp);
-          temp.push(<%=elem[1]%>);
+          //temp.push(<%=elem.Longitude%>);
           console.log(temp);
+console.log("TESTTTT");
           newMarkers.push(temp);
-console.log(newMarkers);
+        console.log(newMarkers);
        }
      }
      <% });%>
       var mapOptions = {
           center: new google.maps.LatLng(37.3382,-121.8863),
-          zoom: 12,
+          zoom: 11,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
           var map = new google.maps.Map(document.getElementById("map_canvas"),
@@ -64,7 +68,7 @@ console.log(newMarkers);
 var markerCluster=new MarkerClusterer(map,mapmarkers); 
 google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
     // your code here
-    map.setZoom(17);
+    map.setZoom(15);
     map.setCenter(cluster.getCenter());
 //cluster.getMarkers();
 //cluster.getSize();
@@ -178,7 +182,7 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
         console.log("TEST");
         var mapOptions = {
           center: new google.maps.LatLng(37.3382,-121.8863),
-          zoom: 12,
+          zoom: 11,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"),
@@ -186,12 +190,12 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
         var markers=[];
          <% val.forEach(function(drink){ %>
         marker = new google.maps.Marker({
-        position: new google.maps.LatLng(<%=drink[0]%>,<%=drink[1]%>),
+        position: new google.maps.LatLng(<%=drink.Latitude%>,<%=drink.Longitude%>),
         
      }); 
         //console.log(<%=drink[3]%>);
         //marker.setTitle(<%=drink[3]%>);
-        var h=("<%=drink[3]%>");
+        var h=("<%=drink.Address%>");
         marker.setTitle(h);
      
         markers.push(marker);
@@ -200,7 +204,7 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
          var markerCluster=new MarkerClusterer(map,markers);
 google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
     // your code here
-    map.setZoom(17);
+    map.setZoom(15);
     map.setCenter(cluster.getCenter());
     openNav();
     console.log("Ro");
@@ -218,13 +222,48 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
 
 
   <script>
-// function openNav() {
-//     document.getElementById("mySidenav").style.width = "250px";
-// }
-// setTimeout(openNav, 5000);
-// function closeNav() {
-//     document.getElementById("mySidenav").style.width = "0";
-// }
+
+      function reload() {
+        console.log("TEST");
+        var mapOptions = {
+          center: new google.maps.LatLng(37.3382,-121.8863),
+          zoom: 11,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+        var markers=[];
+         <% val.forEach(function(drink){ %>
+        marker = new google.maps.Marker({
+        position: new google.maps.LatLng(<%=drink.Latitude%>,<%=drink.Longitude%>),
+        
+     }); 
+        //console.log(<%=drink[3]%>);
+        //marker.setTitle(<%=drink[3]%>);
+        var h=("<%=drink.Address%>");
+        marker.setTitle(h);
+     
+        markers.push(marker);
+       console.log(marker);
+     <% });%>
+         var markerCluster=new MarkerClusterer(map,markers);
+google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
+    // your code here
+    map.setZoom(15);
+    map.setCenter(cluster.getCenter());
+    openNav();
+    console.log("Ro");
+    
+    console.log(cluster);
+    //console.log(cluster.markerCluster.markers[0]);
+    console.log("ro");
+    console.log(cluster);
+    
+//cluster.getMarkers();
+//cluster.getSize();
+});
+      }
+    
   </script>
     
   </head>
@@ -237,7 +276,12 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
   <font color="white">Pick a Time Line From: <input type="date"  id="day"></input></font>
   <font color="white">To: <input type="date" id="day2"></input></font>
   <button type="button" onclick="process()">Submit!</button>
-
+  
+</div>
+</div>
+<div class="row" >
+<div class="col-lg-9" align="right" style="margin: 0 auto;">
+<button type="button" onclick="reload()">Zoom Out!</button>
 </div>
 </div>
 <div id="mySidenav" class="sidenav">

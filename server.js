@@ -39,11 +39,13 @@ admin.initializeApp({
 var db = admin.database();
 var ref=db.ref("Address of the Dump spots");
 var pairs=[];
+var debug=[];
 var time=[];
 var data=[];
 var x=1;
 ref.orderByChild("Longitude"+"Latitude").on("child_added", function(snapshot) {
   var temp=[];
+  debug.push(snapshot.val());
    data.push(snapshot.val());
   temp.push(snapshot.val().Latitude);
   temp.push(snapshot.val().Longitude);
@@ -53,9 +55,13 @@ ref.orderByChild("Longitude"+"Latitude").on("child_added", function(snapshot) {
   var timearray=snapshot.val().Time;
   if(timearray!=undefined)
   time.push(timearray);
-  if(temp[0]!=undefined && temp[1]!=undefined)
+  if(temp[0]!=undefined && temp[1]!=undefined){
   pairs.push(temp);
+  
+}
 });
+
+
 var air=[];
 var ti=[];
 
@@ -73,6 +79,7 @@ ref.on("value", function(snapshot) {
  if(tim!=undefined){
       if(ti[0]==null){
           ti.push(tim);}}
+
  if(temp[0]==null)
   temp.push(newPost.val().Latitude);
   if(temp[0]==undefined && temp[0]==null)
@@ -91,8 +98,13 @@ ref.on("value", function(snapshot) {
 
       });
   });
+
+//
+
+//
 var x=[];
 function json(){
+   x=[];
   data.forEach(function (element){
     var count=0;
     data.forEach(function (e){
@@ -106,6 +118,7 @@ function json(){
         })
         if(pa==1){
           x.push(element);
+          console.log("original"+x);
         }
       }
     })
@@ -118,7 +131,7 @@ function ui(){
   console.log("x "+ x.length);
   x.forEach(function (d){
     
-      if(d.count>=2){
+      if(d.count>=1){
         duplicate.push(d);
       }
 })
@@ -133,8 +146,12 @@ var ria=[];
 var fox=1;
 var i=0;
 var j=0;
+var k=0;
+var l=0;
  var SanJose=[];
- var usa=[];
+ var SantaClara=[];
+ var Sunnyvale=[];
+ var Milpitas=[];
 function datesandcount1(){
   
 pairs.forEach(function(first){
@@ -142,36 +159,43 @@ pairs.forEach(function(first){
   var String=first[3];
   console.log("string is"+String);
  // var list=["Sunnyvale","San Jose","Cupertino", "Milpitas","Palo Alto","Mountain View","Fremont","Campbell","Union City"];
-  var list=["USA","San Jose"];
+  var list=["Santa Clara","San Jose","Sunnyvale","Milpitas"];
   list.forEach(function(e){
     var swift=String.search(e);
     if(swift!=-1)
       {
         if(e=="San Jose"){
           i++;
-        //console.log(SanJose);
       }
-      if(e=="USA"){
-          j++;
-       
-        
+      if(e=="Santa Clara"){
+          j++;    
+      }
+      if(e=="Sunnyvale"){
+          k++;
+      }
+      if(e=="Milpitas"){
+          l++;    
       }
         
       }
   })
 
-  // fox++;
-  
-    
+  // fox++;  
 });
 SanJose.push("San Jose");
   SanJose.push(i);
-  usa.push("USA");
-  usa.push(j);
+  SantaClara.push("Santa Clara");
+  SantaClara.push(j);
+  Sunnyvale.push("Sunnyvale");
+  Sunnyvale.push(k);
+  Milpitas.push("Milpitas");
+  Milpitas.push(l);
   ria.push(SanJose);
-  ria.push(usa);
+  ria.push(SantaClara);
+  ria.push(Sunnyvale);
+  ria.push(Milpitas);
+
 console.log(SanJose);
-console.log(usa);
 console.log(ria);
 }
 setTimeout(datesandcount1,5000);
@@ -179,24 +203,42 @@ setTimeout(datesandcount1,5000);
 //listing the differenct dates and their respective incident count
 
 var date=[];
+var bigdata=[];
 
 function datesandcount(){
+  var chairs=[];
+ref.orderByChild("Longitude"+"Latitude").on("child_added", function(snapshot) {
+  var krishna=[];
+  bigdata.push(snapshot.val());
+  krishna.push(snapshot.val().Latitude);
+  krishna.push(snapshot.val().Longitude);
+  krishna.push(snapshot.val().Time);
+  krishna.push(snapshot.val().Address);
+  krishna.push(snapshot.key);
+  chairs.push(krishna);
+  
+
+});
+  date=[];
+   pairs=pairs.concat(air);
+
+   air=[];
   var i=0;
  var kri=[];
- kri.push(pairs[0]);
-  if(pairs[0]==pairs[1])
+ kri.push(chairs[0]);
+  if(chairs[0]==chairs[1])
   var count=0;
   var pemp=[];
    var counts=[];
    var bool=1;
    var checkcount=[];   
-pairs.forEach(function(first){
+chairs.forEach(function(first){
   var count=0;
   var bool=1;
   var check=0;
   var hashmaparray=[];
   var ids=[];
-  pairs.forEach(function(second){
+  chairs.forEach(function(second){
     if(first[2]==second[2])
     {   ids.push(second[4]);
 
@@ -221,7 +263,7 @@ pairs.forEach(function(first){
   checkcount.push(check);
   var print=1;
   var prit=1;
-data.forEach(function (element){
+bigdata.forEach(function (element){
   
   if(element.Time==first[2])
     //if(element.count==null){
@@ -254,9 +296,21 @@ data.forEach(function (element){
     } 
 });
 console.log("krishna teja");
+
 //console.log(data);
 date.forEach(function(e){
-  e.sort();
+  e.forEach(function (element){
+  var exchange;
+  exchange=element[0];
+ // console.log(exchange);
+  element[0]=element[2];
+  element[2]=exchange;
+  //console.log("exchange");
+  //console.log(element);
+  //e[0]=e[2];
+  //[2]=exchange;
+ // console.log(e);
+})
 })
 date.sort();
 
@@ -270,25 +324,38 @@ setTimeout(datesandcount,4000);
 //listing the different places and its count
 var final=[];
 var Zeta=[];
+
 function filter1(){
-  pairs=pairs.concat(air);
-  air=[];
+  var hairs=[];
+ref.orderByChild("Longitude"+"Latitude").on("child_added", function(snapshot) {
+  var krishna=[];
+  
+  krishna.push(snapshot.val().Latitude);
+  krishna.push(snapshot.val().Longitude);
+  krishna.push(snapshot.val().Time);
+  krishna.push(snapshot.val().Address);
+  krishna.push(snapshot.key);
+  hairs.push(krishna);
+  
+
+});
+
   var i=0;
  var kri=[];
- kri.push(pairs[0]);
-  if(pairs[0]==pairs[1])
+ kri.push(hairs[0]);
+  if(hairs[0]==hairs[1])
   var count=0;
   var pemp=[];
    var counts=[];
    var bool=1;
    var checkcount=[];   
-pairs.forEach(function(first){
+hairs.forEach(function(first){
   var count=0;
   var bool=1;
   var check=0;
   var hashmaparray=[];
   var ids=[];
-  pairs.forEach(function(second){
+  hairs.forEach(function(second){
     if(first[3]==second[3])
     {   ids.push(second[4]);
 
@@ -317,9 +384,15 @@ data.forEach(function (element){
   
   if(element.Address==first[3])
     //if(element.count==null){
-   { element.id=first[4];
+   {var str = element.Address;
+    var x=str.search(",");
+     var sub=str.substring(x+2);
+     var supersub=sub.search(",");
+     var result=sub.substring(0,supersub); 
+    element.id=first[4];
     element.count=check;
     element.list=ids;
+    element.city=result;
   }
    // console.log(element);
     //}
@@ -424,12 +497,20 @@ app.get('/',function(req,res){
 
 
 app.get('/charts',function(req,res){
-  res.render('pages/charts.ejs',{val:x,date:date});
+   filter1();
+   json();
+
+   datesandcount();
+
+  res.render('pages/charts.ejs',{val:x,date:date,bod:ria});
 });
 
 app.get('/ListView',function(req,res){
    filter1();
    json();
+  // datesandcount();
+   console.log("date after loading");
+   console.log(date);
   res.render('pages/listview.ejs',{val:final});
 });
 
@@ -437,21 +518,37 @@ app.get('/listviewData',function(req,res){
   //console.log("length"+data.length);
   filter1();
    json();
+   console.log("values of x after loading  "+x);
   res.send({data:x});
 })
 
 app.get('/MapView',function(req,res){
-  i=1;
-  i++;
-time=time.concat(ti);
-  pairs=pairs.concat(air);
-  air=[];
-  for(var i=0;i<pairs.length;i++){
-        //console.log(pairs[i]);
-    }
+//   i=1;
+//   i++;
+// time=time.concat(ti);
+// console.log("before pairs concatenation");
+// console.log(debug.length);
+// console.log(debug);
+// console.log("air is ");
+// console.log(air.length);
+// console.log(air);
+//   pairs=pairs.concat(air);
+//  // debug=debug.concat(air);
+//   air=[];
+//   for(var i=0;i<pairs.length;i++){
+//     console.log("pairs is ")
+//         console.log(pairs[i]);
+//     }
     
-//console.log(pairs.length);
- res.render('pages/index.ejs',{val:pairs});
+// console.log(pairs.length);
+debug=[];
+
+ref.orderByChild("Longitude"+"Latitude").on("child_added", function(snapshot) {
+  var temp=[];
+  debug.push(snapshot.val());
+  
+});
+ res.render('pages/index.ejs',{val:debug});
   
 });
 
@@ -507,15 +604,7 @@ app.post('/email',function(req,res){
         }
     });
     var text = "The payment paid is "+req.body.Payment+". "+"The Payment Id is "+req.body.PaymentId;
-   //  text.push(req.body.Payment);
-   //  //text.push(req.body.'Payment Id');
-   //  //text.push(req.body.'Payment Status');
-   // // text.push(req.body.Item Count);
-   //   text.push(req.body.Name);
-   //   text.push(req.body.Address);
-   // // // text.push(req.body.'Phone Number');
-   //   text.push(req.body.Date);
-   //   text.push(req.body.Time);
+
  
     var mailOptions = {
     from: 'arekrishnateja@gmail.com', // sender address
