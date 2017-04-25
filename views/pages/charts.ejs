@@ -99,24 +99,38 @@
 
 <br></br>
 <br></br>
+<div class="panel panel-default" >
+  <div id="button"  class="panel-body" data-toggle="collapse" data-target="#container">Incident Chart in Various cities</div>
+ 
+    <div id="container"  style="min-width: 1200px; height: 400px; margin: 0 auto"></div>
+</div>
+</div>
+<div class="panel panel-default" >
+  <div id="button"  class="panel-body" data-toggle="collapse" data-target="#container3"> Incident Chart in San Jose----------------------------------------Click to View</div>
+ 
+    <div id="container3" class="collapse" style="min-width: 1350px; height: 400px; margin: 0 auto"></div>
+</div>
+</div>
 
+<div class="panel panel-default" >
+  <div id="button"  class="panel-body" data-toggle="collapse" data-target="#container4">Incident Chart SunnyVale----------------------------------------Click to View</div>
+ 
+    <div id="container4" class="collapse" style="min-width: 1350px; height: 400px; margin: 0 auto"></div>
+</div>
+</div>
+<div class="panel panel-default" >
+  <div id="button"  class="panel-body" data-toggle="collapse" data-target="#container5">Incident Chart in SantaClara-------------------------------------Click to View</div>
+ 
+    <div id="container5" class="collapse" style="min-width: 1350px; height: 400px; margin: 0 auto"></div>
+</div>
+</div>
+<div class="panel panel-default" >
+  <div id="button"  class="panel-body" data-toggle="collapse" data-target="#container6">Incident Chart in Milpitas----------------------------------------Click to View</div>
+ 
+    <div id="container6" class="collapse" style="min-width: 1350px; height: 400px; margin: 0 auto"></div>
+</div>
+</div>
 
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-<br></br>
-<br></br>
-
-<div class="col-md-12" id="container3" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-<br></br>
-<br></br>
-
-<div class="col-md-12" id="container4" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-<br></br>
-<br></br>
-<div class="col-md-12" id="container5" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-<br></br>
-<br></br>
-<div class="col-md-12" id="container6" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-<br></br>
 <br></br>
 <div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <br></br>
@@ -243,7 +257,7 @@ $('#container').highcharts({
 
         },
         title: {
-            text: 'Graph representing Location and its count of number of incidents in various cities'
+            text: 'Chart representing count of number of incidents in various cities'
         },
         subtitle: {
             text: document.ontouchstart === undefined ?
@@ -362,7 +376,7 @@ $('#container3').highcharts({
 
         },
         title: {
-            text: 'Graph representing Location and its count of number of incidents in San Jose'
+            text: 'Chart representing different locations and its count of number of incidents in San Jose'
         },
         subtitle: {
             text: document.ontouchstart === undefined ?
@@ -480,7 +494,7 @@ $('#container4').highcharts({
 
         },
         title: {
-            text: 'Graph representing Location and its count of number of incidents'
+            text: 'Chart representing different locations and its count of number of incidents in SunnyVale'
         },
         subtitle: {
             text: document.ontouchstart === undefined ?
@@ -598,7 +612,7 @@ $('#container5').highcharts({
 
         },
         title: {
-            text: 'Graph representing Location and its count of number of incidents'
+            text: 'Chart representing different locations and its count of number of incidents in Santa Clara'
         },
         subtitle: {
             text: document.ontouchstart === undefined ?
@@ -716,7 +730,7 @@ $('#container6').highcharts({
 
         },
         title: {
-            text: 'Graph representing Location and its count of number of incidents'
+            text: 'Chart representing different locations and its count of number of incidents in Milpitas'
         },
         subtitle: {
             text: document.ontouchstart === undefined ?
