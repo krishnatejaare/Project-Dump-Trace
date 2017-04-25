@@ -148,7 +148,7 @@ var i=0;
 var j=0;
 var k=0;
 var l=0;
-var liars=[];
+var lairs=[];
  var SanJose=[];
  var SantaClara=[];
  var Sunnyvale=[];
@@ -162,7 +162,8 @@ function datesandcount1(){
   krish.push(snapshot.val().Time);
   krish.push(snapshot.val().Address);
   krish.push(snapshot.key);
-  lairs.push(krishna);
+  lairs.push(krish);
+})
 lairs.forEach(function(first){
   console.log("krishnatejaare is a very good");
   var String=first[3];
