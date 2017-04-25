@@ -144,16 +144,20 @@ setTimeout(ui,5000);
 var area=[];
 var ria=[];
 var fox=1;
+
+var lairs=[];
+ 
+function datesandcount1(){
+ria=[];
+lairs=[];
 var i=0;
 var j=0;
 var k=0;
 var l=0;
-var lairs=[];
- var SanJose=[];
+var SanJose=[];
  var SantaClara=[];
  var Sunnyvale=[];
  var Milpitas=[];
-function datesandcount1(){
   ref.orderByChild("Longitude"+"Latitude").on("child_added", function(snapshot) {
   var krish=[];
   
@@ -164,6 +168,7 @@ function datesandcount1(){
   krish.push(snapshot.key);
   lairs.push(krish);
 })
+
 lairs.forEach(function(first){
   console.log("krishnatejaare is a very good");
   var String=first[3];
@@ -205,10 +210,11 @@ SanJose.push("San Jose");
   ria.push(Sunnyvale);
   ria.push(Milpitas);
 
+  console.log(i);
 console.log(SanJose);
 console.log(ria);
 }
-setTimeout(datesandcount1,5000);
+//setTimeout(datesandcount1,5000);
 
 //listing the differenct dates and their respective incident count
 
@@ -509,9 +515,9 @@ app.get('/',function(req,res){
 app.get('/charts',function(req,res){
    filter1();
    json();
-datesandcount1();
+//ria=[];
    datesandcount();
-
+datesandcount1();
   res.render('pages/charts.ejs',{val:x,date:date,bod:ria});
 });
 
