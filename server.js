@@ -148,13 +148,22 @@ var i=0;
 var j=0;
 var k=0;
 var l=0;
+var liars=[];
  var SanJose=[];
  var SantaClara=[];
  var Sunnyvale=[];
  var Milpitas=[];
 function datesandcount1(){
+  ref.orderByChild("Longitude"+"Latitude").on("child_added", function(snapshot) {
+  var krish=[];
   
-pairs.forEach(function(first){
+  krish.push(snapshot.val().Latitude);
+  krish.push(snapshot.val().Longitude);
+  krish.push(snapshot.val().Time);
+  krish.push(snapshot.val().Address);
+  krish.push(snapshot.key);
+  lairs.push(krishna);
+lairs.forEach(function(first){
   console.log("krishnatejaare is a very good");
   var String=first[3];
   console.log("string is"+String);
@@ -499,7 +508,7 @@ app.get('/',function(req,res){
 app.get('/charts',function(req,res){
    filter1();
    json();
-
+datesandcount1();
    datesandcount();
 
   res.render('pages/charts.ejs',{val:x,date:date,bod:ria});
