@@ -77,14 +77,14 @@
 <style type="text/css">
       html { height: 100% }
       body { font-family: "Lato", sans-serif;height: 100%; margin: 0; padding: 0;background: brown !important }
-      #container{background: teal !important}
-      #container2{background: teal !important}
+      #container{}
+      #container2{}
       #button {width:45%;}
       #newDiv {
     width: 100%;
     padding: 25px 0;
     text-align: center;
-    background-color: lightgreen;
+    
     margin-top:20px;
 }
       #i{
@@ -96,7 +96,7 @@
 </head>
 
 <body>
-background-color: #93B874;
+
 <br></br>
 <br></br>
 
@@ -104,12 +104,23 @@ background-color: #93B874;
 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <br></br>
 <br></br>
-<div id="container3" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-<div id="container4" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-<div id="container5" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-<div id="container6" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
+<div class="col-md-12" id="container3" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<br></br>
+<br></br>
+
+<div class="col-md-12" id="container4" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<br></br>
+<br></br>
+<div class="col-md-12" id="container5" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<br></br>
+<br></br>
+<div class="col-md-12" id="container6" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<br></br>
+<br></br>
 <div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<br></br>
+<br></br>
 
     <script type='text/javascript'>
 
@@ -232,7 +243,7 @@ $('#container').highcharts({
 
         },
         title: {
-            text: 'Graph representing Location and its count of number of incidents'
+            text: 'Graph representing Location and its count of number of incidents in various cities'
         },
         subtitle: {
             text: document.ontouchstart === undefined ?
@@ -351,7 +362,7 @@ $('#container3').highcharts({
 
         },
         title: {
-            text: 'Graph representing Location and its count of number of incidents'
+            text: 'Graph representing Location and its count of number of incidents in San Jose'
         },
         subtitle: {
             text: document.ontouchstart === undefined ?

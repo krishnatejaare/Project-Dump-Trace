@@ -30,6 +30,15 @@ $http.get('/listviewData').success(function(response){
   $scope.data=response.data;
   console.log(response);  
 })
+$scope.greaterthan=function(val){
+  if(val!=undefined){
+  return function(item){
+      return item.count >= val;
+    }
+
+  }
+
+}
 $scope.getURL = function(item){
   //console.log("item");
 imagesRef.child(item).getDownloadURL().then(function(url){
@@ -80,9 +89,10 @@ $scope.getData=function(item){
 <h3 style="color:gold;">The Dumping Hot Spots are:
  </h3>
 <br></br>
-<font color="gold"> Search:</font><input type="text" placeholder="Search List by City" ng-model="searchtext.city"/>
+<font color="gold"> </font><input type="text" placeholder="Search List by City" ng-model="searchtext.city"/>
+<font color="gold"> </font><input type="text" placeholder="Search List by count" ng-model="searchtext.count"/>
 <br></br>
-<div class="container" style="cursor:pointer" class="panel-group" ng-repeat="d in data| filter:searchtext" Style="margin-top: 10px;">
+<div class="container" style="cursor:pointer" class="panel-group" ng-repeat="d in data|filter:searchtext.city|filter:greaterthan(searchtext.count)" Style="margin-top: 10px;">
 
  <div class="panel panel-default" >
   <div id="button"  class="panel-body" data-toggle="collapse" data-target="#i-{{$index}}">{{d.Address}}-----{{d.count}}</div>
