@@ -613,7 +613,7 @@ app.post('/email',function(req,res){
     var json=JSON.stringify(req.body);
     console.log(json);
     var transporter = nodemailer.createTransport({
-        service: 'Gmail',
+        service: 'Yahoo',
         auth: {
             user: 'arekrishnateja@yahoo.com', // Your email id
             pass: '123rayalu' // Your password
