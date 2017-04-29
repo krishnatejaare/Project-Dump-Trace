@@ -615,15 +615,15 @@ app.post('/email',function(req,res){
     var transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-            user: 'arekrishnateja@gmail.com', // Your email id
-            pass: 'Krish123rayalu' // Your password
+            user: 'arekrishnateja@yahoo.com', // Your email id
+            pass: '123rayalu' // Your password
         }
     });
     var text = "The payment paid is "+req.body.Payment+". "+"The Payment Id is "+req.body.PaymentId;
 
  
     var mailOptions = {
-    from: 'arekrishnateja@gmail.com', // sender address
+    from: 'arekrishnateja@yahoo.com', // sender address
     to: req.body.Email,// list of receivers
     subject: 'Payment Confirmation', // Subject line
     text:json
