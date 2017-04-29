@@ -619,14 +619,14 @@ app.post('/email',function(req,res){
             pass: 'Krish123rayalu' // Your password
         }
     });
-    var text = "The payment paid is "+req.body.Payment+". "+"The Payment Id is "+req.body.PaymentId;
+    var text = "The payment paid is "+req.body.Payment+". "+"\n"+"The Payment Id is "+req.body.PaymentId+"."+"\n"+"The payment status is "+req.body.PaymentStatus+". "+"\n"+"The Total Item Count is "+req.body.ItemCount+"."+"\n"+"Name is "+req.body.Name+". "+"\n"+"Address is "+req.body.Address+"."+"\n"+"Phone Number is "+req.body.PhoneNumber+". "+"\n"+"The Pick up Date is "+req.body.Date+"."+"\n"+"Pick Up Time is "+req.body.Time+".";
 
- 
+    console.log(text);
     var mailOptions = {
     from: 'arekrishnateja@gmail.com', // sender address
     to: req.body.Email,// list of receivers
     subject: 'Payment Confirmation', // Subject line
-    text:json
+    text:text
 };
 transporter.sendMail(mailOptions, function(error, info){
     if(error){
