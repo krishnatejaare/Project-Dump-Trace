@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -139,7 +139,7 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
       body { font-family: "Lato", sans-serif;height: 100%; margin: 0; padding: 0;background: brown !important }
       #day{color:white;background: black}
       #day2{color:white;background: black}
-      #map_canvas { height: 100% }
+      #map_canvas { width: 98%;height:450px; }
       .sidenav {
     height: 100%;
     width: 0;
@@ -175,7 +175,7 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
   .sidenav a {font-size: 18px;}
 }
     </style>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_vZAlwiYJHZpJGR7W5429MVhcRQBlZdE&sensor=true"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_vZAlwiYJHZpJGR7W5429MVhcRQBlZdE&callback=initMap"></script>
     <script type="text/javascript" src="/MarkerClusterer/markerclusterer.js"></script>
     <script>
       window.onload=function initialize() {
@@ -201,10 +201,11 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
         markers.push(marker);
        console.log(marker);
      <% });%>
-         var markerCluster=new MarkerClusterer(map,markers);
+         var markerCluster=new MarkerClusterer(map,markers,{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
     // your code here
     map.setZoom(15);
+
     map.setCenter(cluster.getCenter());
     openNav();
     console.log("Ro");
@@ -304,3 +305,4 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
 </html>
 
 
+ -->
