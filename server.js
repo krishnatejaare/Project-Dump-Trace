@@ -510,7 +510,10 @@ setTimeout(pri, 2000);
 app.get('/',function(req,res){
   res.render('pages/about.ejs',{val:final,data:x});
 });
+app.get('/i',function(req,res){
 
+ res.render('pages/i.ejs');
+});
 
 app.get('/charts',function(req,res){
    filter1();
@@ -567,6 +570,7 @@ ref.orderByChild("Longitude"+"Latitude").on("child_added", function(snapshot) {
  res.render('pages/index.ejs',{val:debug});
   
 });
+
 
 app.get('/timemapview',function(req,res){
 time=time.concat(ti);
