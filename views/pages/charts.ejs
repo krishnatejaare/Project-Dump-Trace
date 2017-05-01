@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+ <link href="../stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="../stylesheets/grayscale.min.css" rel="stylesheet" type="text/css">
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -23,118 +26,71 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse"
-          data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span> <span
-            class="icon-bar"></span> <span class="icon-bar"></span> <span
-            class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/">Dump Trace</a>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse"
-        id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          
-          <li>
-            <a href="/MapView">Map View</a>
-          </li>
-          <li>
-            <a href="/ListView">List View</a>
-          </li>
-          <li>
-            <a href="/ChartView">Chart View</a>
-          </li>
 
-          <!-- <li class="dropdown"><a href="#" class="dropdown-toggle"
-            data-toggle="dropdown">K<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="/companyRatingAnalysis">Ratings</a></li>
-              <li><a href="/showCompanyReviews">Reviews</a></li>
-            </ul></li>
-          <li class="dropdown"><a href="#" class="dropdown-toggle"
-            data-toggle="dropdown">J<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="/getBarChartCali">Full Time vs part Time in
-                  CA </a></li>
-              <li><a href="/showmaps">State wise job count</a></li> -->
-            </ul></li>
-
-          <!-- <li><a href="/showtest">M</a></li> -->
-        </ul>
-        <!-- /.navbar-collapse -->
-      </div>
-      
-   
-  
-
-      <!-- /.container -->
-  </nav>
-<style type="text/css">
-      html { height: 100% }
-      body { font-family: "Lato", sans-serif;height: 100%; margin: 0; padding: 0;background: brown !important }
-      #container{}
-      #container2{}
-      #button {width:45%;}
-      #newDiv {
-    width: 100%;
-    padding: 25px 0;
-    text-align: center;
-    
-    margin-top:20px;
-}
-      #i{
-        width:100px;
-        height:100px;
-      }
-    </style>
 
 </head>
 
-<body>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="/">Dump Trace
+                    <!-- <i class="fa fa-play-circle"></i> <span class="light"></span> -->
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    
+                    <li>
+                        <a class="page-scroll" href="/MapView">MapView</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/ListView">ListView</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/charts">ChartView</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+<link href="../stylesheets/grayscale.min.css" rel="stylesheet" type="text/css">
+<header class="intro">
+        <div class="intro-body">
 
 <br></br>
 <br></br>
-<div class="panel panel-default" >
-  <div id="button"  class="panel-body" data-toggle="collapse" data-target="#container">Incident Chart in Various cities</div>
- 
-    <div id="container"  style="min-width: 1200px; height: 400px; margin: 0 auto"></div>
-</div>
-</div>
-<div class="panel panel-default" >
-  <div id="button"  class="panel-body" data-toggle="collapse" data-target="#container3"> Incident Chart in San Jose</div>
- 
-    <div id="container3"  style="min-width: 1200px; height: 400px; margin: 0 auto"></div>
-</div>
-</div>
 
-<div class="panel panel-default" >
-  <div id="button"  class="panel-body" data-toggle="collapse" data-target="#container4">Incident Chart SunnyVale</div>
- 
-    <div id="container4"  style="min-width: 1200px; height: 400px; margin: 0 auto"></div>
-</div>
-</div>
-<div class="panel panel-default" >
-  <div id="button"  class="panel-body" data-toggle="collapse" data-target="#container5">Incident Chart in SantaClara</div>
- 
-    <div id="container5"  style="min-width: 1200px; height: 400px; margin: 0 auto"></div>
-</div>
-</div>
-<div class="panel panel-default" >
-  <div id="button"  class="panel-body" data-toggle="collapse" data-target="#container6">Incident Chart in Milpitas</div>
- 
-    <div id="container6"  style="min-width: 1200px; height: 400px; margin: 0 auto"></div>
-</div>
-</div>
 
+<div  id="container" style="color:#0b3C5D ; padding: 35px 35px ; margin-bottom: 20px; background-color: black ";"></div>
 <br></br>
-<div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<br></br>
+<div  id="container3" style="color:#0b3C5D ; padding: 35px 35px ; margin-bottom: 20px; background-color: black ";"></div>
 <br></br>
 <br></br>
+
+<div  id="container4" style="color:#0b3C5D ; padding: 35px 35px ; margin-bottom: 20px; background-color: black ";"></div>
+<br></br>
+<br></br>
+<div  id="container5" style="color:#0b3C5D ; padding: 35px 35px ; margin-bottom: 20px; background-color: black ";"></div>
+<br></br>
+<br></br>
+<div  id="container6" style="color:#0b3C5D ; padding: 35px 35px ; margin-bottom: 20px; background-color: black ";>"</div>
+<br></br>
+<br></br>
+<div id="container2" style="color:#0b3C5D ; padding: 35px 35px ; margin-bottom: 20px; background-color: black ";"></div>
+<br></br>
+<br></br>
+
+</div>
 
     <script type='text/javascript'>
 

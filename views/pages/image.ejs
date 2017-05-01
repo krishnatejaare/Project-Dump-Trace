@@ -32,15 +32,12 @@
 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
     <script type='text/javascript'>
-
-
 $(function() {
   var array=[];
   var count=[];
   
   <%val.forEach(function(element){%>
     var temp=[];
-
     temp.push("<%=element.Address%>"+":    "+"     "+<%=element.count%>);
     temp.concat(":");
     temp.concat(<%=element.count%>)
@@ -48,7 +45,6 @@ $(function() {
     count.push(<%=element.count%>);
     array.push(temp);  
   <%})%>
-
   for(var i=0;i<array.length;i++){
     console.log(array[i]);
   }
@@ -114,7 +110,6 @@ datearray.push(temp);
             },
             pie: { allowPointSelect: true, cursor: 'pointer' }
         },
-
         // series: [{
         //     type: 'column',
         //     name: 'Count is',
@@ -139,11 +134,9 @@ datearray.push(temp);
 //                         /*  subtitle: {
 //                          text: 'Source: WorldClimate.com'
 //                          }, */
-
 //                         xAxis: {
 //                             categories: [
 //                                 'Date'
-
 //                             ],
 //                             crosshair: true
 //                         }

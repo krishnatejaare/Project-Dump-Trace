@@ -18,6 +18,7 @@
     <!-- Custom Fonts -->
     <link href="../stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css">
     
+    <link href="../stylesheets/grayscale.min.css" rel="stylesheet">
     
     <script>
     function process(){
@@ -76,59 +77,10 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
     }
       
 </script>
-
+<link href="../stylesheets/grayscale.min.css" rel="stylesheet">
     
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse"
-          data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span> <span
-            class="icon-bar"></span> <span class="icon-bar"></span> <span
-            class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/">Dump Trace</a>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse"
-        id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          
-          <li>
-            <a href="/MapView">Map View</a>
-          </li>
-          <li>
-            <a href="/ListView">List View</a>
-          </li>
-          <li>
-            <a href="/charts">Chart View</a>
-          </li>
-
-          <!-- <li class="dropdown"><a href="#" class="dropdown-toggle"
-            data-toggle="dropdown">K<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="/companyRatingAnalysis">Ratings</a></li>
-              <li><a href="/showCompanyReviews">Reviews</a></li>
-            </ul></li>
-          <li class="dropdown"><a href="#" class="dropdown-toggle"
-            data-toggle="dropdown">J<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="/getBarChartCali">Full Time vs part Time in
-                  CA </a></li>
-              <li><a href="/showmaps">State wise job count</a></li> -->
-            </ul></li>
-
-          <!-- <li><a href="/showtest">M</a></li> -->
-        </ul>
-        <!-- /.navbar-collapse -->
-      </div>
-      
-   
-  
-
-      <!-- /.container -->
-  </nav>
+   <header class="intro">
+        <div class="intro-body">
 
  <br></br>
   
@@ -269,12 +221,44 @@ google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
     
   </head>
   <body>
-    
+     <link href="../stylesheets/grayscale.min.css" rel="stylesheet">
+     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="/">Dump Trace
+                    <!-- <i class="fa fa-play-circle"></i> <span class="light"></span> -->
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    
+                    <li>
+                        <a class="page-scroll" href="/MapView">Map View</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/ListView">ListView</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/charts">ChartView</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
 
     <div class="row" style="margin: 0 auto; margin-top:25px">
       <div class="col-lg-12">
     
-  <font color="white">Pick a Time Line From: <input type="date"  id="day"></input></font>
+  <font color="white"><h4>Pick a Time Line </h4> <input type="date"  id="day"></input></font>
   <font color="white">To: <input type="date" id="day2"></input></font>
   <button type="button" onclick="process()">Submit!</button>
   

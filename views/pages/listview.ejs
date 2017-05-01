@@ -68,9 +68,9 @@ $scope.getData=function(item){
 
 <style type="text/css">
       html { height: 100% }
-      body { font-family: "Lato", sans-serif;height: 100%; margin: 0; padding: 0;background: brown !important }
+      body { font-family: "Lato", sans-serif;height: 100%; margin: 0; padding: 0;background: grey !important }
       
-      #button {width:45%;}
+      #button {background-color:white;width:100%;}
       #newDiv {
     width: 100%;
     padding: 25px 0;
@@ -83,10 +83,41 @@ $scope.getData=function(item){
         height:100px;
       }
     </style>
-<% include template %>
+
 </head>
 <body   id="body"  ng-app="myApp" ng-controller="datacontroller">
-<h3 style="color:gold;">The Dumping Hot Spots are:
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="/"><font color="white">Dump Trace</font>
+                    <!-- <i class="fa fa-play-circle"></i> <span class="light"></span> -->
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    
+                    <li>
+                        <a class="page-scroll" href="/MapView"><font color="white">MapView </font></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/ListView"><font color="white">ListView </font></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/charts"><font color="white">ChartView </font></a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+<h3 style="color:white;padding-top:70px">The Dumping Hot Spots are:
  </h3>
 <br></br>
 <font color="gold"> </font><input type="text" placeholder="Search List by City" ng-model="searchtext.city"/>
@@ -118,8 +149,8 @@ $scope.getData=function(item){
 
 <br id="br"></br>
 
-	
-	
+  
+  
 <script>
 window.onload=function myFunction() {      
 //         var count=0;

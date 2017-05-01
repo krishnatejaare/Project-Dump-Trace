@@ -508,12 +508,9 @@ function pri(){
 setTimeout(pri, 2000);
 
 app.get('/',function(req,res){
-  res.render('pages/about.ejs',{val:final,data:x});
+  res.render('pages/i.ejs');
 });
-app.get('/i',function(req,res){
 
- res.render('pages/i.ejs');
-});
 
 app.get('/charts',function(req,res){
    filter1();
