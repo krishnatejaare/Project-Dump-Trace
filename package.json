@@ -16,6 +16,7 @@
     "@google-cloud/storage": "^0.8.0",
     "angular": "^1.6.4",
     "body-parser": "^1.17.1",
+    "configstore": "^3.0.0",
     "ejs": "^2.5.6",
     "ejs-mate": "^2.3.0",
     "express": "^4.15.0",
