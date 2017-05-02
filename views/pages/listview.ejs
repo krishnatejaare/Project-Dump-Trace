@@ -70,7 +70,7 @@ $scope.getData=function(item){
       html { height: 100% }
       body { font-family: "Lato", sans-serif;height: 100%; margin: 0; padding: 0;background: grey !important }
       
-      #button {background-color:white;width:100%;}
+      #button {background-color:tan;width:100%;}
       #newDiv {
     width: 100%;
     padding: 25px 0;
@@ -87,12 +87,12 @@ $scope.getData=function(item){
 </head>
 <body   id="body"  ng-app="myApp" ng-controller="datacontroller">
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-        <div class="container">
+        <div class="container" Style="margin-top:20px;">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="/"><font color="white">Dump Trace</font>
+                <a class="navbar-brand page-scroll" href="/"><font color="white" SIZE="4">DUMP TRACE</font>
                     <!-- <i class="fa fa-play-circle"></i> <span class="light"></span> -->
                 </a>
             </div>
@@ -103,13 +103,13 @@ $scope.getData=function(item){
                     <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
                     
                     <li>
-                        <a class="page-scroll" href="/MapView"><font color="white">MapView </font></a>
+                        <a class="page-scroll" href="/MapView"><font color="white" size="3">MAP VIEW </font></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="/ListView"><font color="white">ListView </font></a>
+                        <a class="page-scroll" href="/ListView"><font color="white" SIZE="3">LISTVIEW </font></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="/charts"><font color="white">ChartView </font></a>
+                        <a class="page-scroll" href="/charts"><font color="white" SIZE="3">CHART VIEW </font></a>
                     </li>
                 </ul>
             </div>
@@ -120,8 +120,8 @@ $scope.getData=function(item){
 <h3 style="color:white;padding-top:70px">The Dumping Hot Spots are:
  </h3>
 <br></br>
-<font color="gold"> </font><input type="text" placeholder="Search List by City" ng-model="searchtext.city"/>
-<font color="gold"> </font><input type="text" placeholder="Search List by count" ng-model="searchtext.count"/>
+<font color="gold"> </font><input type="text" Style="background-color:tan" placeholder="Search List by City" ng-model="searchtext.city"/>
+<font color="gold"> </font><input type="text" Style="background-color:tan" placeholder="Search List by count" ng-model="searchtext.count"/>
 <br></br>
 <div class="container" style="cursor:pointer" class="panel-group" ng-repeat="d in data|filter:searchtext.city|filter:greaterthan(searchtext.count)" Style="margin-top: 10px;">
 
