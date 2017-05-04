@@ -26,9 +26,9 @@ var database=firebase.database();
 
 var storageRef = storage.ref();
 var imagesRef = storageRef.child('photos');
-$http.get('/listviewData').success(function(response){
+$http.get('/bookingsData').success(function(response){
   $scope.data=response.data;
-  console.log(response);  
+  console.log(response.data);  
 })
 $scope.greaterthan=function(val){
   if(val!=undefined){
@@ -71,6 +71,7 @@ $scope.getData=function(item){
       body { font-family: "Lato", sans-serif;height: 100%; margin: 0; padding: 0;background: black !important }
       
       #button {background-color:grey;width:100%;}
+      #button1{background-color: white;width:100%;}
       #newDiv {
     width: 100%;
     padding: 25px 0;
@@ -106,10 +107,10 @@ $scope.getData=function(item){
                         <a class="page-scroll" href="/MapView"><font color="white" size="3">MAP VIEW </font></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="/ListView"><font color="white" SIZE="3">LISTVIEW </font></a>
+                        <a  class="page-scroll" href="/ListView"><font color="white" SIZE="3">LISTVIEW </font></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="/charts"><font color="white" SIZE="3">CHART VIEW </font></a>
+                        <a  class="page-scroll" href="/charts"><font color="white" SIZE="3">CHART VIEW </font></a>
                     </li>
                     <li>
                         <a  class="page-scroll" href="/bookings"><font color="white" SIZE="3">BOOKINGS </font></a>
@@ -120,25 +121,51 @@ $scope.getData=function(item){
         </div>
         <!-- /.container -->
     </nav>
-<h3 style="color:white;padding-top:70px">The Dumping Hot Spots are:
+<h3 style="color:white;padding-top:70px">The Bookings are:
  </h3>
 <br></br>
 <font color="gold"> </font><input type="text" Style="background-color:white" placeholder="Search List by City" ng-model="searchtext.city"/>
-<font color="gold"> </font><input type="text" Style="background-color:white" placeholder="Search List by count" ng-model="searchtext.count"/>
+
 <br></br>
-<div class="container" style="cursor:pointer" class="panel-group" ng-repeat="d in data|filter:searchtext.city|filter:greaterthan(searchtext.count)" Style="margin-top: 10px;">
+<div class="container" style="cursor:pointer" class="panel-group" ng-repeat="d in data|filter:searchtext.city" Style="margin-top: 10px;">
+
+
+
+<div class="panel panel-default">
+<div id="button" class="panel-body" data-toggle="collapse" data-target="#j-{{$index}}"><font color="white" size="4">{{d.Name}}</font></div>
+  <div id="j-{{$index}}" class="collapse">
+
+<div id="button1"  class="panel-body" data-toggle="collapse"><font color="black"><font color="black" size="4">Address is : </font><font color="red" size="4">{{d.Address}}</font></font></div>
+<div id="button1"  class="panel-body" data-toggle="collapse"><font color="black" size="4">Email is : </font><font color="red" size="4">{{d.Email}}</font></font></div>
+<div id="button1"  class="panel-body" data-toggle="collapse"><font color="black" size="4">Payment ID is :</font> <font color="red" size="4">{{d.PaymentID}}</font></div>
+<div id="button1"  class="panel-body" data-toggle="collapse"><font color="black" size="4">Paid Amount is :</font> <font color="red" size="4">{{d.PaidAmount}} USD</font></div>
+<div id="button1"  class="panel-body" data-toggle="collapse"><font color="black" size="4">Phone Number is :</font> <font color="red" size="4">{{d.PhoneNumber}}</font></div>
+<div id="button1"  class="panel-body" data-toggle="collapse"><font color="black" size="4">Pick Up Date is :</font> <font color="red" size="4">{{d.PickupDate}}</font></div>
+<div id="button1"  class="panel-body" data-toggle="collapse"><font color="black" size="4">Pick Up Time is :</font> <font color="red" size="4">{{d.PickupTime}}</font></div>
+<div id="button1"  class="panel-body" data-toggle="collapse"><font color="black" size="4">Total Item Count :</font> <font color="red" size="4">{{d.TotalItemCount}}</font></div>
+
+
 
  <div class="panel panel-default" >
-  <div id="button"  class="panel-body" data-toggle="collapse" data-target="#i-{{$index}}"><font color="white">{{d.Address}}-----{{d.count}}</font></div>
+  <div id="button1"  class="panel-body" data-toggle="collapse" data-target="#i-{{$index}}"><font color="black" size="4">Items</font></div>
  <div id="i-{{$index}}" class="collapse">
- <div class="col-md-4" ng-repeat="item in d.list">
-<img style="width:100%;height:150px" id="{{item}}" data-toggle="modal" data-target="#m" ng-src="{{getURL(item)}}" />
+ <div class="col-md-4" ng-repeat="item in d.Items">
+<div id="button1"  class="panel-body" data-toggle="collapse"><font color="red" size="4">{{item.ItemName}} : {{item.ItemCount}}</font></div>
 
+ </div>
  </div>
  
     
 </div>
 </div>
+
+</div>
+
+
+
+
+
+
 </div>
 
 <!-- 

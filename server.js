@@ -38,6 +38,7 @@ admin.initializeApp({
 });
 var db = admin.database();
 var ref=db.ref("Address of the Dump spots");
+var ref2=db.ref("Bookings");
 var pairs=[];
 var debug=[];
 var time=[];
@@ -60,7 +61,17 @@ ref.orderByChild("Longitude"+"Latitude").on("child_added", function(snapshot) {
   
 }
 });
+var bookings=[];
+function book(){
 
+var itemsobject=[];
+ref2.on("child_added",function(snapshot){
+bookings.push(snapshot.val());
+itemsobject.push(snapshot.val().Items);
+console.log(bookings);
+console.log(itemsobject);
+});
+}
 
 var air=[];
 var ti=[];
@@ -118,7 +129,7 @@ function json(){
         })
         if(pa==1){
           x.push(element);
-          console.log("original"+x);
+          //console.log("original"+x);
         }
       }
     })
@@ -128,14 +139,14 @@ function json(){
 setTimeout(json,4000);
 function ui(){
   var duplicate=[];
-  console.log("x "+ x.length);
+  //console.log("x "+ x.length);
   x.forEach(function (d){
     
       if(d.count>=1){
         duplicate.push(d);
       }
 })
-  console.log(duplicate);
+  //console.log(duplicate);
 }
 
 setTimeout(ui,5000);
@@ -172,7 +183,7 @@ var SanJose=[];
 lairs.forEach(function(first){
   console.log("krishnatejaare is a very good");
   var String=first[3];
-  console.log("string is"+String);
+  //console.log("string is"+String);
  // var list=["Sunnyvale","San Jose","Cupertino", "Milpitas","Palo Alto","Mountain View","Fremont","Campbell","Union City"];
   var list=["Santa Clara","San Jose","Sunnyvale","Milpitas"];
   list.forEach(function(e){
@@ -211,8 +222,8 @@ SanJose.push("San Jose");
   ria.push(Milpitas);
 
   console.log(i);
-console.log(SanJose);
-console.log(ria);
+//console.log(SanJose);
+//console.log(ria);
 }
 //setTimeout(datesandcount1,5000);
 
@@ -331,8 +342,8 @@ date.forEach(function(e){
 date.sort();
 
 for(var i=0;i<date.length;i++){
-  console.log("datearray is")
-       console.log(date[i]);
+  //console.log("datearray is")
+       //console.log(date[i]);
       
     }
 }
@@ -506,6 +517,21 @@ function pri(){
 }
 
 setTimeout(pri, 2000);
+
+
+app.get('/bookings',function(req,res){
+   
+  res.render('pages/bookings.ejs',{val:final});
+});
+
+app.get('/bookingsData',function(req,res){
+  //console.log("length"+data.length);
+  bookings=[];
+ book();
+  res.send({data:bookings});
+})
+
+
 
 app.get('/',function(req,res){
   res.render('pages/i.ejs');
